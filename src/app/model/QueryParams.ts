@@ -2,7 +2,7 @@ export interface QueryParams {
   offset: number,
   limit: number,
   reverse: boolean,
-  sort: string,
+  property: string
 
   totalPages?: number,
   count?: number,

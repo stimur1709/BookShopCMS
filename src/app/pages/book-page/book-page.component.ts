@@ -5,7 +5,7 @@ import {Book} from "../../model/Book";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {QueryParams} from "../../model/QueryParams";
-import {MatSort} from "@angular/material/sort";
+import {MatSort, Sort} from "@angular/material/sort";
 
 
 @Component({
@@ -13,13 +13,13 @@ import {MatSort} from "@angular/material/sort";
   templateUrl: './book-page.component.html',
   styleUrls: ['./book-page.component.css'],
 })
-export class BookPageComponent implements OnInit, AfterViewInit  {
+export class BookPageComponent implements OnInit, AfterViewInit {
 
   public queryParams: QueryParams = {
     offset: 0,
     limit: 10,
     reverse: true,
-    sort: 'title',
+    property: 'popularity',
     totalPages: 0,
     count: 0
   }
@@ -32,7 +32,7 @@ export class BookPageComponent implements OnInit, AfterViewInit  {
   constructor(private bookService: BookService) {
   }
 
-  displayedColumns: string[] = ['title', 'image', 'discount', 'isBestseller', 'popularity', 'price', 'pubDate', 'rate'];
+  displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate'];
 
   ngOnInit(): void {
     this.getBooks();
@@ -49,15 +49,21 @@ export class BookPageComponent implements OnInit, AfterViewInit  {
     this.getBooks();
   }
 
+  sortChanged(event: Sort) {
+    console.log(event)
+    this.queryParams.property = event.active;
+    this.queryParams.reverse = event.direction == 'asc';
+    this.getBooks();
+  }
+
   private getBooks() {
     this.bookService.getAll(this.queryParams).subscribe(
-      {next: (data: BooksPage) => {
+      {
+        next: (data: BooksPage) => {
           this.dataSource = new MatTableDataSource(data.books);
-          this.queryParams.totalPages = data.totalPages
-          this.queryParams.count = data.count
-          this.queryParams.sort = data.sort
-          console.log(this.dataSource);
-          console.log(this.queryParams);
-        }});
+          this.queryParams.totalPages = data.totalPages;
+          this.queryParams.count = data.count;
+        }
+      });
   }
 }

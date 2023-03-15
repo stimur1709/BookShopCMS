@@ -14,12 +14,15 @@ export class BookService {
   }
 
   getAll(queryParams: QueryParams): Observable<BooksPage> {
+    console.log(queryParams)
     return this.http.get<BooksPage>(
       environment.apiBaseUrl + 'api/books',
       {
         'params': {
           'offset': queryParams.offset,
-          'limit': queryParams.limit
+          'limit': queryParams.limit,
+          'property': queryParams.property,
+          'reverse': queryParams.reverse
         }
       }
     )
