@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BookService} from "../../services/book.service";
 import {BooksPage} from "../../model/BooksPage";
 import {Book} from "../../model/Book";
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {QueryParams} from "../../model/QueryParams";
-import {MatSort, Sort} from "@angular/material/sort";
+import {Sort} from "@angular/material/sort";
 
 
 @Component({
@@ -13,7 +13,7 @@ import {MatSort, Sort} from "@angular/material/sort";
   templateUrl: './book-page.component.html',
   styleUrls: ['./book-page.component.css'],
 })
-export class BookPageComponent implements OnInit, AfterViewInit {
+export class BookPageComponent implements OnInit {
 
   input: string = ''
 
@@ -27,9 +27,6 @@ export class BookPageComponent implements OnInit, AfterViewInit {
     search: ''
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   public dataSource: MatTableDataSource<Book>;
 
   constructor(private bookService: BookService) {
@@ -39,11 +36,6 @@ export class BookPageComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getBooks();
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   public pageChanged(event: PageEvent) {
@@ -69,8 +61,9 @@ export class BookPageComponent implements OnInit, AfterViewInit {
       });
   }
 
-  applyFilter(event: KeyboardEvent) {
+  applyFilter(event: Event) {
     this.queryParams.search = (event.target as HTMLInputElement).value;
+    this.queryParams.offset = 0;
     this.getBooks();
   }
 }
