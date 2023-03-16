@@ -15,13 +15,16 @@ import {MatSort, Sort} from "@angular/material/sort";
 })
 export class BookPageComponent implements OnInit, AfterViewInit {
 
+  input: string = ''
+
   public queryParams: QueryParams = {
     offset: 0,
     limit: 10,
     reverse: true,
     property: 'popularity',
     totalPages: 0,
-    count: 0
+    count: 0,
+    search: ''
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -50,7 +53,6 @@ export class BookPageComponent implements OnInit, AfterViewInit {
   }
 
   sortChanged(event: Sort) {
-    console.log(event)
     this.queryParams.property = event.active;
     this.queryParams.reverse = event.direction == 'asc';
     this.getBooks();
@@ -65,5 +67,10 @@ export class BookPageComponent implements OnInit, AfterViewInit {
           this.queryParams.count = data.count;
         }
       });
+  }
+
+  applyFilter(event: KeyboardEvent) {
+    this.queryParams.search = (event.target as HTMLInputElement).value;
+    this.getBooks();
   }
 }

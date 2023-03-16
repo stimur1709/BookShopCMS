@@ -22,7 +22,8 @@ export class BookService {
           'offset': queryParams.offset,
           'limit': queryParams.limit,
           'property': queryParams.property,
-          'reverse': queryParams.reverse
+          'reverse': queryParams.reverse,
+          'search': queryParams.search
         }
       }
     )

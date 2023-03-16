@@ -1,4 +1,5 @@
 export interface QueryParams {
+  search: string;
   offset: number,
   limit: number,
   reverse: boolean,
