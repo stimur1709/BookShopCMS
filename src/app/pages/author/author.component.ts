@@ -16,7 +16,6 @@ export class AuthorComponent extends ContentComponent<AuthorPage> {
   }
 
   override url: string = 'api/authors';
-
   override displayedColumns: string[] = ['name', 'description'];
 
   public override queryParams: QueryParams = {
@@ -27,9 +26,4 @@ export class AuthorComponent extends ContentComponent<AuthorPage> {
     search: '',
   }
 
-
-  ngOnInit(): void {
-    console.log(this.queryParams);
-    this.getData(this.queryParams, this.url);
-  }
 }

@@ -7,7 +7,7 @@ export interface DataPage {
 }
 
 export interface BookPage extends DataPage {
-  books: Book[]
+  content: Book[]
 }
 
 

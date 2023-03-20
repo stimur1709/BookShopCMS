@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Content} from "../Content";
 import {HttpService} from "../../services/http.service";
 import {PaginatorParams, QueryParams} from "../../model/QueryParams";
@@ -13,9 +13,9 @@ import {Sort} from "@angular/material/sort";
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent<T> implements Content {
+export class ContentComponent<T> implements Content, OnInit {
 
-  public queryParams: QueryParams = {
+  queryParams: QueryParams = {
     offset: 0,
     limit: 10,
     reverse: true,
@@ -23,30 +23,30 @@ export class ContentComponent<T> implements Content {
     search: ''
   }
 
-  public paginatorParams: PaginatorParams = {
+  paginatorParams: PaginatorParams = {
     totalPages: 0,
     count: 0
   }
 
   @Input() url!: string;
-  @Input() dataSource!: MatTableDataSource<any>;
   @Input() displayedColumns!: string[];
+  dataSource!: MatTableDataSource<any>;
 
   constructor(private service: HttpService) {
   }
 
+  ngOnInit(): void {
+    this.getData(this.queryParams, this.url);
+  }
+
   getData(queryParams: QueryParams, url: string): Subscription {
-    console.log(queryParams)
     return this.service.getAll(this.queryParams, url)
       .pipe(take(1))
       .subscribe(
         {
           next: (data: AuthorPage) => {
-            console.log(data);
             this.dataSource = new MatTableDataSource(data.content);
-            console.log(data.totalPages);
             this.paginatorParams.totalPages = data.totalPages;
-            console.log(data.count);
             this.paginatorParams.count = data.count;
           }
         }

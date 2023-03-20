@@ -64,11 +64,12 @@ export class BookPageComponent implements OnInit {
         {
           next: (data: BookPage) => {
             console.log(data);
-            this.dataSource = new MatTableDataSource(data.books);
+            this.dataSource = new MatTableDataSource(data.content);
             this.paginatorParams.totalPages = data.totalPages;
             this.paginatorParams.count = data.count;
           }
-        });
+        }
+      );
   }
 
   applyInput(event: Event) {
