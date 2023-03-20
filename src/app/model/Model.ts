@@ -1,5 +1,8 @@
-export interface Book {
+export interface Data {
   id: number
+}
+
+export interface Book extends Data {
   title: string
   discount: number,
   image: string,

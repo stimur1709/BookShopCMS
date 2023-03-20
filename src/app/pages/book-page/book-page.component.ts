@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {BookService} from "../../services/book.service";
-import {BooksPage} from "../../model/BooksPage";
-import {Book} from "../../model/Book";
+import {HttpService} from "../../services/http.service";
+import {BookPage} from "../../model/DataPage";
+import {Book} from "../../model/Model";
 import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
-import {QueryParams} from "../../model/QueryParams";
+import {BookQueryParams} from "../../model/QueryParams";
 import {Sort} from "@angular/material/sort";
 
 
@@ -17,19 +17,21 @@ export class BookPageComponent implements OnInit {
 
   input: string = ''
 
-  public queryParams: QueryParams = {
+  public queryParams: BookQueryParams = {
     offset: 0,
     limit: 10,
     reverse: true,
     property: 'popularity',
     totalPages: 0,
     count: 0,
-    search: ''
+    search: '',
+    bestseller: false
   }
 
   public dataSource: MatTableDataSource<Book>;
 
-  constructor(private bookService: BookService) {
+  constructor(private httpService: HttpService) {
+    httpService.url = 'api/books'
   }
 
   displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate'];
@@ -51,10 +53,10 @@ export class BookPageComponent implements OnInit {
   }
 
   private getBooks() {
-    this.bookService.getAll(this.queryParams).subscribe(
+    this.httpService.getAll(this.queryParams).subscribe(
       {
-        next: (data: BooksPage) => {
-          this.dataSource = new MatTableDataSource(data.books);
+        next: (data: BookPage) => {
+          this.dataSource = new MatTableDataSource(data.content);
           this.queryParams.totalPages = data.totalPages;
           this.queryParams.count = data.count;
         }

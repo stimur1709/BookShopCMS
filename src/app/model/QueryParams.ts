@@ -8,3 +8,7 @@ export interface QueryParams {
   totalPages?: number,
   count?: number,
 }
+
+export interface BookQueryParams extends QueryParams {
+  bestseller: boolean
+}
