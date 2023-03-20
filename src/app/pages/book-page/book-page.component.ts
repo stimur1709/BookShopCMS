@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpService} from "../../services/http.service";
-import {BookPage} from "../../model/DataPage";
-import {Book} from "../../model/Model";
 import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
-import {BookQueryParams} from "../../model/QueryParams";
+import {BookQueryParams, PaginatorParams} from "../../model/QueryParams";
 import {Sort} from "@angular/material/sort";
+import {HttpService} from "../../services/http.service";
+import {Book} from "../../model/Data";
+import {BookPage} from "../../model/DataPage";
+import {take} from "rxjs";
 
 
 @Component({
@@ -15,23 +16,27 @@ import {Sort} from "@angular/material/sort";
 })
 export class BookPageComponent implements OnInit {
 
-  input: string = ''
+  input: string = '';
+  showFilter = false;
 
   public queryParams: BookQueryParams = {
     offset: 0,
     limit: 10,
     reverse: true,
     property: 'popularity',
-    totalPages: 0,
-    count: 0,
     search: '',
-    bestseller: false
+    bestseller: false,
+    discount: false
+  }
+
+  public paginatorParams: PaginatorParams = {
+    totalPages: 0,
+    count: 0
   }
 
   public dataSource: MatTableDataSource<Book>;
 
-  constructor(private httpService: HttpService) {
-    httpService.url = 'api/books'
+  constructor(private service: HttpService) {
   }
 
   displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate'];
@@ -53,19 +58,32 @@ export class BookPageComponent implements OnInit {
   }
 
   private getBooks() {
-    this.httpService.getAll(this.queryParams).subscribe(
-      {
-        next: (data: BookPage) => {
-          this.dataSource = new MatTableDataSource(data.content);
-          this.queryParams.totalPages = data.totalPages;
-          this.queryParams.count = data.count;
-        }
-      });
+    this.service.getAll(this.queryParams, 'api/books')
+      .pipe(take(1))
+      .subscribe(
+        {
+          next: (data: BookPage) => {
+            console.log(data);
+            this.dataSource = new MatTableDataSource(data.books);
+            this.paginatorParams.totalPages = data.totalPages;
+            this.paginatorParams.count = data.count;
+          }
+        });
   }
 
-  applyFilter(event: Event) {
+  applyInput(event: Event) {
     this.queryParams.search = (event.target as HTMLInputElement).value;
     this.queryParams.offset = 0;
     this.getBooks();
+  }
+
+  clearInput() {
+    this.input = '';
+    this.queryParams.search = this.input;
+    this.queryParams.offset = 0;
+    this.getBooks();
+  }
+
+  applyFilter() {
   }
 }

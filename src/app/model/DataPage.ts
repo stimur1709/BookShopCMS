@@ -1,4 +1,4 @@
-import {Book} from "./Model";
+import {Author, Book} from "./Data";
 
 export interface DataPage {
   sort: string;
@@ -7,5 +7,10 @@ export interface DataPage {
 }
 
 export interface BookPage extends DataPage {
-  content: Book[]
+  books: Book[]
+}
+
+
+export interface AuthorPage extends DataPage {
+  content: Author[]
 }

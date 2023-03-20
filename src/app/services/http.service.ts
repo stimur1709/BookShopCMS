@@ -9,14 +9,12 @@ import {QueryParams} from "../model/QueryParams";
 })
 export class HttpService {
 
-  url: string
-
   constructor(private http: HttpClient) {
   }
 
-  getAll(queryParams: QueryParams): Observable<any> {
+  getAll(queryParams: QueryParams, url: string): Observable<any> {
     return this.http.get<any>(
-      environment.apiBaseUrl + this.url + this.generateQueryParams(queryParams)
+      environment.apiBaseUrl + url + this.generateQueryParams(queryParams)
     )
   }
 

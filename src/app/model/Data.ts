@@ -13,5 +13,10 @@ export interface Book extends Data {
   pubDate: string,
   code: string,
   rate: number
-
 }
+
+export interface Author extends Data {
+  name: string
+  description: string,
+}
+
