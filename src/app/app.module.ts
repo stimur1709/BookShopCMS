@@ -17,16 +17,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { ContentComponent } from './pages/content/content.component';
 import { AuthorComponent } from './pages/author/author.component';
+import { ContentDirective } from './pages/content.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     BookPageComponent,
-    ContentComponent,
-    AuthorComponent
+    AuthorComponent,
+    ContentDirective
   ],
   imports: [
     BrowserModule,

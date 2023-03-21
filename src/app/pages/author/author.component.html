@@ -1,1 +1,42 @@
-<app-content [displayedColumns]="displayedColumns" [url]="url"></app-content>
+<ng-container>
+  <button (click)="showFilter()" mat-icon-button color="primary">
+    <mat-icon>search</mat-icon>
+  </button>
+  <div style="padding: 5px" *ngIf="filter">
+    <mat-form-field style="width: 50%" *ngIf="showFilter">
+      <mat-label>Filter</mat-label>
+      <input matInput (input)="applyInput($event)" placeholder="Ex. ium" [(ngModel)]="input" #inputElement>
+      <button *ngIf="input" matSuffix mat-icon-button color="primary" aria-label="Clear" (click)="clearInput()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChanged($event)">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> title</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="description"> pubDate</th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+
+  <mat-paginator showFirstLastButtons
+                 (page)="pageChanged($event)"
+                 aria-label="Select page"
+                 [pageSizeOptions]="[10, 25, 50, 100]"
+                 [pageIndex]="queryParams.offset"
+                 [pageSize]="queryParams.limit"
+                 [length]="paginatorParams.count"
+  ></mat-paginator>
+</ng-container>
+
