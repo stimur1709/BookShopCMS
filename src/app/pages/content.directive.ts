@@ -7,35 +7,45 @@ import {PaginatorParams, QueryParams} from "../model/QueryParams";
 import {PageEvent} from "@angular/material/paginator";
 import {Sort} from "@angular/material/sort";
 import {DataPage} from "../model/DataPage";
+import {FormControl, FormGroup} from "@angular/forms";
+import {DatePipe} from "@angular/common";
 
 @Directive({
-  selector: '[appContent]'
+  selector: '[appContent]',
+  providers: [DatePipe]
 })
 export class ContentDirective implements Content<QueryParams, DataPage>, OnInit {
 
   url!: string;
   dataSource: MatTableDataSource<DataPage>;
-  input!: string;
   displayedColumns!: string[];
   filter: boolean = false;
 
   paginatorParams: PaginatorParams = {
     totalPages: 0,
-    count: 0
+    totalElements: 0
   };
 
   queryParams: QueryParams = {
     offset: 0,
     limit: 10,
     reverse: true,
-    property: '',
-    search: ''
+    property: null,
+    search: null
   }
+
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   @ViewChild('inputElement', {read: ElementRef})
   inputElement: ElementRef
 
-  constructor(private service: HttpService) {
+  @ViewChild('picker', {read: ElementRef})
+  date: ElementRef
+
+  constructor(private service: HttpService, protected datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -48,27 +58,29 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
       .subscribe(
         {
           next: (data: any) => {
+            console.log(data)
             this.dataSource = new MatTableDataSource(data.content);
             this.paginatorParams.totalPages = data.totalPages;
-            this.paginatorParams.count = data.count;
+            this.paginatorParams.totalElements = data.totalElements;
           }
         }
       );
   }
 
   applyFilter(): void {
+    console.log(this.queryParams);
     this.getData(this.queryParams, this.url);
   }
 
-  applyInput(event: Event): void {
-    this.queryParams.search = (event.target as HTMLInputElement).value;
+  applyInput(): void {
+    this.queryParams.search = this.inputElement.nativeElement.value;
     this.queryParams.offset = 0;
     this.getData(this.queryParams, this.url);
   }
 
   clearInput(): void {
-    this.input = '';
-    this.queryParams.search = this.input;
+    this.inputElement.nativeElement.value = '';
+    this.queryParams.search = this.inputElement.nativeElement.value;
     this.queryParams.offset = 0;
     this.getData(this.queryParams, this.url);
   }
@@ -94,5 +106,9 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
       }, 100);
     }
   }
+
+  openModal(): void {
+  }
+
 
 }

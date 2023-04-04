@@ -1,17 +1,19 @@
 export interface QueryParams {
-  search: string;
+  search: string | null,
   offset: number,
   limit: number,
   reverse: boolean,
-  property: string
+  property: string | null
 }
 
 export interface PaginatorParams {
   totalPages?: number,
-  count?: number,
+  totalElements?: number,
 }
 
 export interface BookQueryParams extends QueryParams {
   bestseller: boolean,
-  discount: boolean
+  discount: boolean,
+  from?: string | null,
+  to?: string | null
 }

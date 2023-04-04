@@ -5,8 +5,8 @@
   <div style="padding: 5px" *ngIf="filter">
     <mat-form-field style="width: 50%" *ngIf="showFilter">
       <mat-label>Filter</mat-label>
-      <input matInput (input)="applyInput($event)" placeholder="Ex. ium" [(ngModel)]="input" #inputElement>
-      <button *ngIf="input" matSuffix mat-icon-button color="primary" aria-label="Clear" (click)="clearInput()">
+      <input matInput (input)="applyInput()" placeholder="Ex. ium" #inputElement>
+      <button *ngIf="inputElement" matSuffix mat-icon-button color="primary" aria-label="Clear" (click)="clearInput()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -36,7 +36,7 @@
                  [pageSizeOptions]="[10, 25, 50, 100]"
                  [pageIndex]="queryParams.offset"
                  [pageSize]="queryParams.limit"
-                 [length]="paginatorParams.count"
+                 [length]="paginatorParams.totalElements"
   ></mat-paginator>
 </ng-container>
 

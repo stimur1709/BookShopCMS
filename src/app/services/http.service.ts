@@ -22,8 +22,10 @@ export class HttpService {
     let index = 0,
       finalQueryParams = ''
     for (let [key, value] of Object.entries(queryParams)) {
-      finalQueryParams += index === 0 ? `?${key}=${value}` : `&${key}=${value}`
-      index++
+      if (value != null) {
+        finalQueryParams += index === 0 ? `?${key}=${value}` : `&${key}=${value}`
+        index++
+      }
     }
     return finalQueryParams
   }
