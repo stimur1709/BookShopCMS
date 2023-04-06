@@ -44,7 +44,7 @@
 
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="title"> title</th>
-        <td mat-cell *matCellDef="let element"> {{element.title}}
+        <td mat-cell *matCellDef="let element" (click)="openModal(element.slug, 1)"> {{element.title}}
           <ng-container *ngIf="element.isBestseller == 1">
             <mat-icon style="vertical-align: middle" class="Card-price">star</mat-icon>
           </ng-container>
@@ -53,17 +53,17 @@
 
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="price"> price</th>
-        <td mat-cell *matCellDef="let element" (click)="openModal()">
+        <td mat-cell *matCellDef="let element">
           <container-element [ngSwitch]="element.discount">
             <ng-container *ngSwitchCase="0">
               <span class="Card-price">{{element.price | number: '1.2-2'}}</span>
             </ng-container>
             <span *ngSwitchDefault style="display: grid">
               <span class="Card-priceOld">{{element.price | currency: '₽'}}</span>
-                <span class="Card-price">
-                  {{element.discount | percent: '1.0'}}
-                  {{element.price - (element.discount * element.price) | currency: '₽'}}
-                </span>
+              <span class="Card-price">
+                {{element.discount | percent: '1.0'}}
+                {{element.price - (element.discount * element.price) | currency: '₽'}}
+              </span>
           </span>
           </container-element>
         </td>

@@ -24,6 +24,9 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
+import { ModalComponent } from './pages/modal/modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import {MatMenuModule} from '@angular/material/menu';
     NavigationComponent,
     BookPageComponent,
     AuthorComponent,
-    ContentDirective
+    ContentDirective,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatNativeDateModule,
     ReactiveFormsModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [
     DatePipe

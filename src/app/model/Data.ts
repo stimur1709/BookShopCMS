@@ -2,7 +2,7 @@ export interface Data {
   id: number
 }
 
-export interface Book extends Data {
+export interface Books extends Data {
   title: string
   discount: number,
   image: string,
@@ -15,7 +15,41 @@ export interface Book extends Data {
   rate: number
 }
 
+interface TagBook extends Data {
+  slug: string,
+  name: string,
+}
+
+interface Genre extends Data {
+  slug: string,
+  name: string,
+}
+
+interface BookFile {
+}
+
+interface BookRating {
+}
+
+export interface Book extends Books {
+  description: string,
+  userRating: number,
+  count1: number,
+  count2: number,
+  count3: number,
+  count4: number,
+  count5: number,
+  rateReview: number,
+  downloadCount: number,
+  tagList: TagBook[];
+  bookFileList: BookFile[];
+  bookRatingList: BookRating[];
+  authorList: Author[];
+  genreList: Genre[];
+}
+
 export interface Author extends Data {
+  slug: string;
   name: string
   description: string,
 }

@@ -14,8 +14,14 @@ export class HttpService {
 
   getAll(queryParams: QueryParams, url: string): Observable<any> {
     return this.http.get<any>(
-      environment.apiBaseUrl + url + this.generateQueryParams(queryParams)
+      environment.apiBaseUrl  + '/' + url + this.generateQueryParams(queryParams)
     )
+  }
+
+  getData(slug: string, url: string): Observable<any> {
+    return this.http.get<any>(
+      environment.apiBaseUrl + '/' + url + '/' + slug
+    );
   }
 
   private generateQueryParams(queryParams: QueryParams): string {
@@ -29,4 +35,5 @@ export class HttpService {
     }
     return finalQueryParams
   }
+
 }

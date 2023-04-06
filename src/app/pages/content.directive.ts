@@ -9,6 +9,8 @@ import {Sort} from "@angular/material/sort";
 import {DataPage} from "../model/DataPage";
 import {FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
+import {MatDialog} from "@angular/material/dialog";
+import {ModalComponent} from "./modal/modal.component";
 
 @Directive({
   selector: '[appContent]',
@@ -45,15 +47,17 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
   @ViewChild('picker', {read: ElementRef})
   date: ElementRef
 
-  constructor(private service: HttpService, protected datePipe: DatePipe) {
+  constructor(private service: HttpService,
+              protected datePipe: DatePipe,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.getData(this.queryParams, this.url);
+    this.getData();
   }
 
-  getData(queryParams: QueryParams, url: string): Subscription {
-    return this.service.getAll(this.queryParams, url)
+  getData(): Subscription {
+    return this.service.getAll(this.queryParams, this.url)
       .pipe(take(1))
       .subscribe(
         {
@@ -69,32 +73,32 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
 
   applyFilter(): void {
     console.log(this.queryParams);
-    this.getData(this.queryParams, this.url);
+    this.getData();
   }
 
   applyInput(): void {
     this.queryParams.search = this.inputElement.nativeElement.value;
     this.queryParams.offset = 0;
-    this.getData(this.queryParams, this.url);
+    this.getData();
   }
 
   clearInput(): void {
     this.inputElement.nativeElement.value = '';
     this.queryParams.search = this.inputElement.nativeElement.value;
     this.queryParams.offset = 0;
-    this.getData(this.queryParams, this.url);
+    this.getData();
   }
 
   pageChanged(event: PageEvent): void {
     this.queryParams.offset = event.pageIndex;
     this.queryParams.limit = event.pageSize;
-    this.getData(this.queryParams, this.url);
+    this.getData();
   }
 
   sortChanged(event: Sort): void {
     this.queryParams.property = event.active;
     this.queryParams.reverse = event.direction == 'asc';
-    this.getData(this.queryParams, this.url);
+    this.getData();
   }
 
 
@@ -107,8 +111,13 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
     }
   }
 
-  openModal(): void {
+  openModal(slug: string, type: number): void {
+    this.dialog.open(ModalComponent, {
+      data: {
+        type: type,
+        slug: slug
+      }
+    })
   }
-
 
 }

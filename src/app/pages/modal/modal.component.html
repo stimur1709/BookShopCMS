@@ -1,0 +1,145 @@
+<container-element [ngSwitch]="data.type">
+  <h2 *ngSwitchCase="1" mat-dialog-title>
+    Книга
+  </h2>
+  <h2 *ngSwitchCase="2" mat-dialog-title>
+    Автор
+  </h2>
+  <h2 *ngSwitchCase="3" mat-dialog-title>
+    Жанр
+  </h2>
+  <h2 *ngSwitchCase="4" mat-dialog-title>
+    Тег
+  </h2>
+</container-element>
+<mat-dialog-content class="mat-typography">
+  <container-element [ngSwitch]="data.type">
+
+    <ng-container *ngSwitchCase="1">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <img src="{{env.apiBaseUrl + dataSource.image}}" width="150" height="200" alt="1">
+          <mat-card-title-group>
+            <mat-card-title *ngIf="!isEdit">{{dataSource.title}}</mat-card-title>
+            <mat-card-title *ngIf="isEdit">
+              <div class="example-container">
+                <mat-form-field appearance="fill">
+                  <mat-label>Enter your title</mat-label>
+                  <input matInput placeholder="new title" required value="{{dataSource.title}}">
+                </mat-form-field>
+              </div>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <container-element [ngSwitch]="dataSource.discount">
+                <ng-container *ngSwitchCase="0">
+                  <span class="Card-price">{{dataSource.price | number: '1.2-2'}}</span>
+                </ng-container>
+                <span *ngSwitchDefault style="display: grid">
+                <span class="Card-priceOld">Цена: {{dataSource.price | currency: '₽'}}</span>
+                  <span class="Card-price">
+                    Цена со скидкой {{ dataSource.discount | percent: '1.0'}}:
+                    {{dataSource.price - (dataSource.discount * dataSource.price) | currency: '₽'}}
+                  </span>
+                </span>
+              </container-element>
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+              {{'rate: ' + dataSource.rate}}
+            </mat-card-subtitle>
+            <mat-card-subtitle>{{dataSource.authorList.length > 1 ? 'Авторы:' : 'Автор:'}}
+              <ng-container *ngFor="let author of dataSource.authorList; last as asLast">
+                <a class="link" (click)="openModal(author.slug, 2)">
+                  {{author.name}}
+                  <span *ngIf="!asLast">, </span>
+                </a>
+                <mat-icon class="icon" *ngIf="isEdit" (click)="dataSource.authorList.splice(author)">close</mat-icon>
+              </ng-container>
+            </mat-card-subtitle>
+            <mat-card-subtitle>{{dataSource.genreList.length > 1 ? 'Жанры:' : 'Жанр:'}}
+              <ng-container *ngFor="let genre of dataSource.genreList; last as asLast">
+                <a class="link" (click)="openModal(genre.slug, 3)">
+                  {{genre.name}}
+                  <span *ngIf="!asLast">, </span>
+                </a>
+                <mat-icon class="icon" *ngIf="isEdit" (click)="dataSource.genreList.splice(genre, 1)">close</mat-icon>
+              </ng-container>
+            </mat-card-subtitle>
+            <mat-card-subtitle>{{dataSource.tagList.length > 1 ? 'Теги:' : 'Тег:'}}
+              <ng-container *ngFor="let tagBook of dataSource.tagList; last as asLast">
+                <a class="link" (click)="openModal(tagBook.slug, 4)">
+                  {{tagBook.name}}
+                  <span *ngIf="!asLast">, </span>
+                </a>
+                <mat-icon class="icon" *ngIf="isEdit" (click)="dataSource.tagList.splice(tagBook)">close</mat-icon>
+              </ng-container>
+            </mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          {{dataSource.description}}
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="2">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <img src="{{env.apiBaseUrl + dataSource.image.name}}" width="150" height="200" alt="1">
+          <mat-card-title-group>
+            <mat-card-title>{{dataSource.name}}</mat-card-title>
+            <mat-card-subtitle>{{dataSource.bookList.length > 1 ? 'Книги:' : 'Книга:'}}
+              <ng-container *ngFor="let book of dataSource.bookList; last as asLast">
+                <a class="link" (click)="openModal(book.slug, 1)">
+                  {{book.title}}
+                  <span *ngIf="!asLast">, </span>
+                </a>
+              </ng-container>
+            </mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          {{dataSource.description}}
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="3">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{dataSource.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{dataSource.bookList.length > 1 ? 'Книги:' : 'Книга:'}}
+          <ng-container *ngFor="let book of dataSource.bookList; last as asLast">
+            <a class="link" (click)="openModal(book.slug, 1)">
+              {{book.title}}
+              <span *ngIf="!asLast">, </span>
+            </a>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="4">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{dataSource.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{dataSource.bookList.length > 1 ? 'Книги:' : 'Книга:'}}
+          <ng-container *ngFor="let book of dataSource.bookList; last as asLast">
+            <a class="link" (click)="openModal(book.slug, 1)">
+              {{book.title}}
+              <span *ngIf="!asLast">, </span>
+            </a>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+  </container-element>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="edit()" cdkFocusInitial>{{isEdit ? 'save' : 'edit'}}</button>
+</mat-dialog-actions>

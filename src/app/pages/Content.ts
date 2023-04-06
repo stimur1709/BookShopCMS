@@ -28,5 +28,5 @@ export interface Content<Q, D> {
 
   showFilter(): void;
 
-  openModal(): void;
+  openModal(slug: string, type: number): void;
 }
