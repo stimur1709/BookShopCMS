@@ -1,9 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body {
-  height: 100%;
-}
-
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -49,4 +43,37 @@ img {
   cursor: pointer;
 }
 
+.paginator-container {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+}
 
+.input {
+  margin: 5px 4px -5px;
+}
+
+.fixed-filter {
+  position: sticky;
+  top: 64px;
+  z-index: 100;
+  background: white;
+}
+
+.fixed-table {
+  position: sticky;
+}
+
+.table-container {
+  max-height: 550px;
+  overflow-y: auto;
+  margin-top: 50px;
+}
+
+.fixed-paginator {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

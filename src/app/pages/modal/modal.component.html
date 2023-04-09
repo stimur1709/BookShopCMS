@@ -1,4 +1,5 @@
 <container-element [ngSwitch]="data.type">
+
   <h2 *ngSwitchCase="1" mat-dialog-title>
     Книга
   </h2>
@@ -110,12 +111,11 @@
         </mat-card-header>
         <mat-card-content>
           {{dataSource.bookList.length > 1 ? 'Книги:' : 'Книга:'}}
-          <ng-container *ngFor="let book of dataSource.bookList; last as asLast">
-            <a class="link" (click)="openModal(book.slug, 1)">
+          <mat-selection-list>
+            <mat-list-option color="primary"  [disabled]="!isEdit" *ngFor="let book of dataSource.bookList">
               {{book.title}}
-              <span *ngIf="!asLast">, </span>
-            </a>
-          </ng-container>
+            </mat-list-option>
+          </mat-selection-list>
         </mat-card-content>
       </mat-card>
     </ng-container>

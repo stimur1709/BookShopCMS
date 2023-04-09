@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpService} from "../../services/http.service";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {take} from "rxjs";
 import {environment} from "../../environments/environment";
 
@@ -19,17 +19,18 @@ export class ModalComponent implements OnInit {
   url!: string;
   dataSource!: any;
   isEdit = false;
-  public env = environment;
+  isFirst = false;
+  env = environment;
 
   constructor(private service: HttpService,
               @Inject(MAT_DIALOG_DATA) public data: DataModal,
+              public dialogRef: MatDialogRef<ModalComponent>,
               public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.getUrl();
     this.getData();
-    console.log(this.isEdit)
   }
 
   getUrl() {
@@ -56,7 +57,6 @@ export class ModalComponent implements OnInit {
         {
           next: (data: any) => {
             this.dataSource = data;
-            console.log(this.dataSource)
           }
         }
       );
@@ -64,6 +64,7 @@ export class ModalComponent implements OnInit {
 
   openModal(slug: string, type: number): void {
     if (!this.isEdit) {
+      this.dialogRef.close();
       this.dialog.open(ModalComponent, {
         data: {
           type: type,
@@ -76,14 +77,11 @@ export class ModalComponent implements OnInit {
   edit() {
     this.isEdit = !this.isEdit;
     if (!this.isEdit) {
-      console.log("edit");
     } else {
-      console.log("save");
-      console.log(this.dataSource)
     }
   }
 
   untie() {
-    console.log("отвязали")
   }
+
 }

@@ -21,12 +21,14 @@ import {AuthorComponent} from './pages/author/author.component';
 import {ContentDirective} from './pages/content.directive';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import { DatePipe } from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
-import { ModalComponent } from './pages/modal/modal.component';
+import {ModalComponent} from './pages/modal/modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import {MatCardModule} from '@angular/material/card';
     MatToolbarModule,
     MatMenuModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatListModule,
+    MatGridListModule
   ],
   providers: [
     DatePipe

@@ -47,6 +47,7 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
   @ViewChild('picker', {read: ElementRef})
   date: ElementRef
 
+
   constructor(private service: HttpService,
               protected datePipe: DatePipe,
               public dialog: MatDialog) {
