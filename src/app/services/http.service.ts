@@ -15,12 +15,19 @@ export class HttpService {
   getAll(queryParams: QueryParams, url: string): Observable<any> {
     return this.http.get<any>(
       environment.apiBaseUrl  + '/' + url + this.generateQueryParams(queryParams)
-    )
+    );
   }
 
   getData(slug: string, url: string): Observable<any> {
     return this.http.get<any>(
       environment.apiBaseUrl + '/' + url + '/' + slug
+    );
+  }
+
+  saveImage(data: FormData) {
+    console.log("фото")
+    return this.http.post<any>(
+      environment.apiBaseUrl + '/api/image/file', data
     );
   }
 

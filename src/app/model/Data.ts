@@ -6,6 +6,7 @@ export interface Books extends Data {
   title: string
   discount: number,
   image: string,
+  imageId: number,
   isBestseller: number,
   popularity: number,
   price: number,

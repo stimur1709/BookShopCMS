@@ -47,6 +47,7 @@ img {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 8px;
+  min-height: 5px;
 }
 
 .input {
@@ -55,9 +56,10 @@ img {
 
 .fixed-filter {
   position: sticky;
-  top: 64px;
+  top: 75px;
   z-index: 100;
   background: white;
+  margin-top: 5px;
 }
 
 .fixed-table {
@@ -65,9 +67,9 @@ img {
 }
 
 .table-container {
-  max-height: 550px;
+  max-height: 523px;
   overflow-y: auto;
-  margin-top: 50px;
+  margin-top: 65px;
 }
 
 .fixed-paginator {
@@ -77,3 +79,13 @@ img {
   bottom: 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.link-active {
+  cursor: pointer;
+}
+
+.link-active:hover {
+  cursor: pointer;
+  color: #0d6efd;
+}
+

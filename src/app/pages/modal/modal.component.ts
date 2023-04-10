@@ -84,4 +84,23 @@ export class ModalComponent implements OnInit {
   untie() {
   }
 
+  changeImage(event: Event) {
+    if (this.isEdit) {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length > 0) {
+        let newPhotoFormData = new FormData()
+        newPhotoFormData.append('file', input.files[0])
+        this.service.saveImage(newPhotoFormData)
+          .pipe(take(1))
+          .subscribe(
+            {
+              next: (data: any) => {
+                this.dataSource.image = data[0].name;
+                this.dataSource.imageId = data[0].id;
+              }
+            }
+          );
+      }
+    }
+  }
 }
