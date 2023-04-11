@@ -76,8 +76,17 @@ export class ModalComponent implements OnInit {
 
   edit() {
     this.isEdit = !this.isEdit;
-    if (!this.isEdit) {
+    if (this.isEdit) {
     } else {
+      this.service.saveContent(this.url, this.dataSource)
+        .pipe(take(1))
+        .subscribe(
+          {
+            next: (data: any) => {
+              this.dataSource = data;
+            }
+          }
+        );
     }
   }
 
@@ -103,4 +112,9 @@ export class ModalComponent implements OnInit {
       }
     }
   }
+
+  deleteLink(list: any, item: any) {
+    list.splice(list.indexOf(item), 1);
+  }
+
 }

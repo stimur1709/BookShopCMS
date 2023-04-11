@@ -43,4 +43,11 @@ export class HttpService {
     return finalQueryParams
   }
 
+  saveContent( url: string, dataSource: any) {
+    console.log(dataSource)
+    return this.http.post(
+      environment.apiBaseUrl + '/' + url + '/save', dataSource
+    );
+  }
+
 }
