@@ -20,14 +20,14 @@
       <mat-card class="example-card">
         <mat-card-header>
           <div>
-            <img src="{{env.apiBaseUrl + dataSource.image}}" width="150" height="200" alt="1">
-            <input *ngIf="isEdit" type="file" multiple (change)="changeImage($event)" accept="image/*">
+            <img src="{{env.apiBaseUrl + dataSource.image}}" width="150" height="200" alt="1" (click)="openSelectFile()">
+            <input style="display: none" type="file" multiple accept="image/*" (change)="changeImage($event)" #image>
           </div>
           <mat-card-title-group>
             <mat-card-title *ngIf="!isEdit">{{dataSource.title}}</mat-card-title>
             <mat-card-title *ngIf="isEdit">
               <div class="example-container">
-                <mat-form-field appearance="fill">
+                <mat-form-field class="col-md-12 input" appearance="fill">
                   <mat-label>Enter your title</mat-label>
                   <input matInput placeholder="new title" required value="{{dataSource.title}}">
                 </mat-form-field>

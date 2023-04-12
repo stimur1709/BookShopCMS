@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {HttpService} from "../../services/http.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {take} from "rxjs";
@@ -21,6 +21,9 @@ export class ModalComponent implements OnInit {
   isEdit = false;
   isFirst = false;
   env = environment;
+
+  @ViewChild('image', {read: ElementRef})
+  image: ElementRef
 
   constructor(private service: HttpService,
               @Inject(MAT_DIALOG_DATA) public data: DataModal,
@@ -93,6 +96,12 @@ export class ModalComponent implements OnInit {
   untie() {
   }
 
+  openSelectFile() {
+    if (this.isEdit) {
+      this.image.nativeElement.click()
+    }
+  }
+
   changeImage(event: Event) {
     if (this.isEdit) {
       const input = event.target as HTMLInputElement;
@@ -108,13 +117,13 @@ export class ModalComponent implements OnInit {
                 this.dataSource.imageId = data[0].id;
               }
             }
-          );
+          )
       }
     }
   }
 
   deleteLink(list: any, item: any) {
-    list.splice(list.indexOf(item), 1);
+    list.splice(list.indexOf(item), 1)
   }
 
 }
