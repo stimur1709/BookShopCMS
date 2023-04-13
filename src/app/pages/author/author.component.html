@@ -1,27 +1,9 @@
 <ng-container>
 
-  <div class="fixed-filter" style="margin-bottom: 30px">
-
-    <button *ngIf="!filter" (click)="showFilter()" mat-icon-button color="primary">
-      <mat-icon>search</mat-icon>
-    </button>
-
-    <div class="mat-elevation-z8 col-md-6" *ngIf="filter">
-      <div class="row" style="padding: 5px">
-        <button style="margin: 10px 0 0 17px;" *ngIf="filter" (click)="showFilter()" mat-icon-button color="primary">
-          <mat-icon>keyboard_arrow_up</mat-icon>
-        </button>
-        <mat-form-field class="input" style="width: 85%;" *ngIf="showFilter">
-          <mat-label>Filter</mat-label>
-          <input matInput (input)="applyInput()" placeholder="Ex. ium" #inputElement>
-          <button *ngIf="inputElement" matSuffix mat-icon-button color="primary" aria-label="Clear"
-                  (click)="clearInput()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
+  <app-filter class="fixed-filter" style="margin-bottom: 50px"
+              [(queryParams)]="queryParams" [(filter)]="filter"
+              [type]="1" (change)="getData()">
+  </app-filter>
 
   <div class="mat-elevation-z8 table-container" style="{{filter ? 'max-height: 470px' : 'max-height: 510px'}}">
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChanged($event)" fixedLayout>
@@ -49,7 +31,6 @@
                    [length]="paginatorParams.totalElements"
     ></mat-paginator>
   </div>
-
 
 </ng-container>
 

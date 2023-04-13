@@ -24,10 +24,4 @@ export class BookPageComponent extends ContentDirective {
     to: null
   }
 
-  override applyFilter() {
-    this.queryParams.from = this.datePipe.transform(this.range.value.start, 'dd.MM.yyyy');
-    this.queryParams.to = this.datePipe.transform(this.range.value.end, 'dd.MM.yyyy');
-    super.applyFilter();
-  }
-
 }

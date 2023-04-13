@@ -29,6 +29,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTabsModule} from '@angular/material/tabs';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     BookPageComponent,
     AuthorComponent,
     ContentDirective,
-    ModalComponent
+    ModalComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatDialogModule,
     MatCardModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTabsModule
   ],
   providers: [
     DatePipe

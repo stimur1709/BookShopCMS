@@ -36,11 +36,14 @@ img {
   margin-left: 3px;
 }
 
-.icon {
-  font-size: 14px;
-  color: red;
-  height: 12px !important;
+.link-delete {
+  color: #0d6efd;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.link-delete:hover {
+  color: #be123c;
 }
 
 .paginator-container {
@@ -56,7 +59,7 @@ img {
 
 .fixed-filter {
   position: sticky;
-  top: 75px;
+  top: 91px;
   z-index: 100;
   background: white;
   margin-top: 5px;
@@ -69,7 +72,7 @@ img {
 .table-container {
   max-height: 523px;
   overflow-y: auto;
-  margin-top: 65px;
+  margin-top: 80px;
 }
 
 .fixed-paginator {

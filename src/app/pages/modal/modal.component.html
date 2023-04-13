@@ -18,74 +18,143 @@
 
     <ng-container *ngSwitchCase="1">
       <mat-card class="example-card">
-        <mat-card-header>
+        <mat-card-header style="margin-bottom: 10px">
+
           <div>
-            <img src="{{env.apiBaseUrl + dataSource.image}}" width="150" height="200" alt="1" (click)="openSelectFile()">
+            <img src="{{env.apiBaseUrl + dataSource.image}}" width="150" height="200" alt="1"
+                 (click)="openSelectFile()">
             <input style="display: none" type="file" multiple accept="image/*" (change)="changeImage($event)" #image>
           </div>
-          <mat-card-title-group>
-            <mat-card-title *ngIf="!isEdit">{{dataSource.title}}</mat-card-title>
-            <mat-card-title *ngIf="isEdit">
-              <div class="example-container">
-                <mat-form-field class="col-md-12 input" appearance="fill">
-                  <mat-label>Enter your title</mat-label>
-                  <input matInput placeholder="new title" required value="{{dataSource.title}}">
-                </mat-form-field>
-              </div>
-            </mat-card-title>
-            <mat-card-subtitle>
-              <container-element [ngSwitch]="dataSource.discount">
-                <ng-container *ngSwitchCase="0">
-                  <span class="Card-price">{{dataSource.price | number: '1.2-2'}}</span>
-                </ng-container>
-                <span *ngSwitchDefault style="display: grid">
-                <span class="Card-priceOld">Цена: {{dataSource.price | currency: '₽'}}</span>
-                  <span class="Card-price">
-                    Цена со скидкой {{ dataSource.discount | percent: '1.0'}}:
-                    {{dataSource.price - (dataSource.discount * dataSource.price) | currency: '₽'}}
-                  </span>
+
+          <mat-card-title-group style="display: contents">
+            <form>
+              <mat-card-title *ngIf="!isEdit">{{dataSource.title}}</mat-card-title>
+              <mat-card-title *ngIf="isEdit">
+                <div class="example-container">
+                  <mat-form-field class="col-md-12 input" appearance="fill">
+                    <mat-label>Enter your title</mat-label>
+                    <input matInput placeholder="new title" required value="{{dataSource.title}}">
+                  </mat-form-field>
+                </div>
+              </mat-card-title>
+
+              <mat-card-subtitle>
+                <container-element *ngIf="!isEdit" [ngSwitch]="dataSource.discount">
+                  <ng-container *ngSwitchCase="0">
+                    <span class="Card-price" *ngIf="!isEdit">{{dataSource.price | number: '1.2-2'}}</span>
+                  </ng-container>
+
+                  <span *ngSwitchDefault style="display: grid">
+                  <span class="Card-priceOld">Цена: {{dataSource.price | currency: '₽'}}</span>
+                    <span class="Card-price">
+                      Цена со скидкой {{ dataSource.discount | percent: '1.0'}}:
+                      {{dataSource.price - (dataSource.discount * dataSource.price) | currency: '₽'}}
+                    </span>
                 </span>
-              </container-element>
-            </mat-card-subtitle>
-            <mat-card-subtitle>
-              {{'rate: ' + dataSource.rate}}
-            </mat-card-subtitle>
+                </container-element>
 
-            <mat-card-subtitle>{{dataSource.authorList.length > 1 ? 'Авторы:' : 'Автор:'}}
-              <ng-container *ngFor="let author of dataSource.authorList; last as asLast">
-                <a class="link" (click)="openModal(author.slug, 2)">
-                  {{author.name}}
-                  <span *ngIf="!asLast">, </span>
-                </a>
-                <mat-icon class="icon" *ngIf="isEdit" (click)="deleteLink(dataSource.authorList, author)">close</mat-icon>
-              </ng-container>
-            </mat-card-subtitle>
+                <div *ngIf="isEdit">
+                  <mat-form-field class="input" appearance="fill" floatLabel="always">
+                    <mat-label>Amount</mat-label>
+                    <input matInput type="number" min="10" class="example-right-align" placeholder="0"
+                           value="{{dataSource.price}}">
+                    <span matTextPrefix>RUB&nbsp;</span>
+                  </mat-form-field>
 
-            <mat-card-subtitle>{{dataSource.genreList.length > 1 ? 'Жанры:' : 'Жанр:'}}
-              <ng-container *ngFor="let genre of dataSource.genreList; last as asLast">
-                <a class="link" (click)="openModal(genre.slug, 3)">
-                  {{genre.name}}
-                  <span *ngIf="!asLast">, </span>
-                </a>
-                <mat-icon class="icon" *ngIf="isEdit" (click)="deleteLink(dataSource.genreList, genre)">close</mat-icon>
-              </ng-container>
-            </mat-card-subtitle>
+                  <mat-form-field class="input" appearance="fill" floatLabel="always">
+                    <mat-label>Amount</mat-label>
+                    <input matInput type="number" min="1" max="100" class="example-right-align" placeholder="0"
+                           value="{{dataSource.discount}}">
+                    <span matTextPrefix>%&nbsp;</span>
+                  </mat-form-field>
+                </div>
+              </mat-card-subtitle>
 
-            <mat-card-subtitle>{{dataSource.tagList.length > 1 ? 'Теги:' : 'Тег:'}}
-              <ng-container *ngFor="let tagBook of dataSource.tagList; last as asLast">
-                <a class="link" (click)="openModal(tagBook.slug, 4)">
-                  {{tagBook.name}}
-                  <span *ngIf="!asLast">, </span>
-                </a>
-                <mat-icon class="icon" *ngIf="isEdit" (click)="deleteLink(dataSource.tagList, tagBook)">close</mat-icon>
-              </ng-container>
-            </mat-card-subtitle>
+              <mat-card-subtitle>
+                {{'rate: ' + dataSource.rate}}
+              </mat-card-subtitle>
 
+              <mat-card-subtitle>{{dataSource.authorList.length > 1 ? 'Авторы:' : 'Автор:'}}
+                <ng-container *ngFor="let author of dataSource.authorList; last as asLast">
+                  <a [className]="!isEdit ? 'link' : 'link-delete'"
+                     [title]="!isEdit ? 'open' : 'delete'"
+                     (click)="!isEdit ? openModal(author.slug, 2) : deleteLink(dataSource.authorList, author)">
+                    {{author.name}}
+                    <span *ngIf="!asLast && !isEdit">, </span>
+                  </a>
+                </ng-container>
+              </mat-card-subtitle>
+
+              <mat-card-subtitle>{{dataSource.genreList.length > 1 ? 'Жанры:' : 'Жанр:'}}
+                <ng-container *ngFor="let genre of dataSource.genreList; last as asLast">
+                  <a [className]="!isEdit ? 'link' : 'link-delete'"
+                     [title]="!isEdit ? 'open' : 'delete'"
+                     (click)="!isEdit ? openModal(genre.slug, 3) : deleteLink(dataSource.genreList, genre)">
+                    {{genre.name}}
+                    <span *ngIf="!asLast && !isEdit">, </span>
+                  </a>
+                </ng-container>
+              </mat-card-subtitle>
+
+              <mat-card-subtitle>{{dataSource.tagList.length > 1 ? 'Теги:' : 'Тег:'}}
+                <ng-container *ngFor="let tagBook of dataSource.tagList; last as asLast">
+                  <a [className]="!isEdit ? 'link' : 'link-delete'"
+                     [title]="!isEdit ? 'open' : 'delete'"
+                     (click)="!isEdit ? openModal(tagBook.slug, 4) : deleteLink(dataSource.tagList, tagBook)">
+                    {{tagBook.name}}
+                    <span *ngIf="!asLast && !isEdit">, </span>
+                  </a>
+                </ng-container>
+              </mat-card-subtitle>
+            </form>
           </mat-card-title-group>
         </mat-card-header>
+
         <mat-card-content>
-          {{dataSource.description}}
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                Description
+              </ng-template>
+
+              <span *ngIf="!isEdit">
+                {{dataSource.description}}
+              </span>
+
+              <mat-form-field appearance="fill" style="width: 100%" *ngIf="isEdit">
+                <mat-label>Textarea</mat-label>
+                <textarea style="height: 300px" matInput value="{{dataSource.description}}"></textarea>
+              </mat-form-field>
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                add author
+              </ng-template>
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                add genre
+              </ng-template>
+
+              Content 3
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                add tags
+              </ng-template>
+
+              Content 3
+            </mat-tab>
+          </mat-tab-group>
         </mat-card-content>
+
       </mat-card>
     </ng-container>
 
@@ -119,7 +188,7 @@
         <mat-card-content>
           {{dataSource.bookList.length > 1 ? 'Книги:' : 'Книга:'}}
           <mat-selection-list>
-            <mat-list-option color="primary"  [disabled]="!isEdit" *ngFor="let book of dataSource.bookList">
+            <mat-list-option color="primary" [disabled]="!isEdit" *ngFor="let book of dataSource.bookList">
               {{book.title}}
             </mat-list-option>
           </mat-selection-list>

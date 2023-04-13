@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Directive, OnInit} from '@angular/core';
 import {Content} from "./Content";
 import {Subscription, take} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
@@ -7,14 +7,12 @@ import {PaginatorParams, QueryParams} from "../model/QueryParams";
 import {PageEvent} from "@angular/material/paginator";
 import {Sort} from "@angular/material/sort";
 import {DataPage} from "../model/DataPage";
-import {FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalComponent} from "./modal/modal.component";
 
 @Directive({
-  selector: '[appContent]',
-  providers: [DatePipe]
+  selector: '[appContent]'
 })
 export class ContentDirective implements Content<QueryParams, DataPage>, OnInit {
 
@@ -36,18 +34,6 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
     search: null
   }
 
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
-
-  @ViewChild('inputElement', {read: ElementRef})
-  inputElement: ElementRef
-
-  @ViewChild('picker', {read: ElementRef})
-  date: ElementRef
-
-
   constructor(private service: HttpService,
               protected datePipe: DatePipe,
               public dialog: MatDialog) {
@@ -58,6 +44,7 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
   }
 
   getData(): Subscription {
+    console.log(this.queryParams);
     return this.service.getAll(this.queryParams, this.url)
       .pipe(take(1))
       .subscribe(
@@ -72,24 +59,6 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
       );
   }
 
-  applyFilter(): void {
-    console.log(this.queryParams);
-    this.getData();
-  }
-
-  applyInput(): void {
-    this.queryParams.search = this.inputElement.nativeElement.value;
-    this.queryParams.offset = 0;
-    this.getData();
-  }
-
-  clearInput(): void {
-    this.inputElement.nativeElement.value = '';
-    this.queryParams.search = this.inputElement.nativeElement.value;
-    this.queryParams.offset = 0;
-    this.getData();
-  }
-
   pageChanged(event: PageEvent): void {
     this.queryParams.offset = event.pageIndex;
     this.queryParams.limit = event.pageSize;
@@ -100,16 +69,6 @@ export class ContentDirective implements Content<QueryParams, DataPage>, OnInit 
     this.queryParams.property = event.active;
     this.queryParams.reverse = event.direction == 'asc';
     this.getData();
-  }
-
-
-  showFilter(): void {
-    this.filter = !this.filter;
-    if (this.filter) {
-      setTimeout(() => {
-        this.inputElement.nativeElement.focus()
-      }, 100);
-    }
   }
 
   openModal(slug: string, type: number): void {
