@@ -47,7 +47,3 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>
-
-<app-paginator [(queryParams)]="queryParams" [paginatorParams]="paginatorParams"
-               (queryParamsChange)="pageChanged()">
-</app-paginator>

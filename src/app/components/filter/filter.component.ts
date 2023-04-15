@@ -1,5 +1,4 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {QueryParams} from "../../model/QueryParams";
 import {FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 
@@ -9,28 +8,15 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['./filter.component.css'],
   providers: [DatePipe]
 })
-export class FilterComponent<Q extends QueryParams> {
+export class FilterComponent {
 
-  @Input()
-  filter: boolean
-
-  @Output()
-  filterChange = new EventEmitter<boolean>()
-
-  @Input()
-  queryParams: any
-
-  @Input()
-  type: number
-
-  @Output()
-  queryParamsChange = new EventEmitter<any>()
-
-  @ViewChild('inputElement', {read: ElementRef})
-  inputElement: ElementRef
-
-  @ViewChild('picker', {read: ElementRef})
-  date: ElementRef
+  @Input() filter: boolean
+  @Output() filterChange = new EventEmitter<boolean>()
+  @Input() queryParams: any
+  @Input() type: number
+  @Output() queryParamsChange = new EventEmitter<any>()
+  @ViewChild('inputElement', {read: ElementRef}) inputElement: ElementRef
+  @ViewChild('picker', {read: ElementRef}) date: ElementRef
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),

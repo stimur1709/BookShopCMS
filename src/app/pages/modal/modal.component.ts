@@ -1,13 +1,8 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {HttpService} from "../../services/http.service";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject, OnInit} from '@angular/core';
 import {take} from "rxjs";
-import {environment} from "../../environments/environment";
-
-interface DataModal {
-  type: number,
-  slug: string
-}
+import {HttpService} from "../../services/http.service";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {DataModal} from "../../model/QueryParams";
 
 @Component({
   selector: 'app-modal',
@@ -16,69 +11,50 @@ interface DataModal {
 })
 export class ModalComponent implements OnInit {
 
+  isEdit = false;
   url!: string;
   dataSource!: any;
-  isEdit = false;
-  isFirst = false;
-  env = environment;
-
-  @ViewChild('image', {read: ElementRef})
-  image: ElementRef
 
   constructor(private service: HttpService,
-              @Inject(MAT_DIALOG_DATA) public data: DataModal,
-              public dialogRef: MatDialogRef<ModalComponent>,
-              public dialog: MatDialog) {
+              @Inject(MAT_DIALOG_DATA) public data: DataModal) {
   }
 
   ngOnInit(): void {
-    this.getUrl();
-    this.getData();
+    this.getUrl()
+    this.getData()
   }
 
-  getUrl() {
-    switch (this.data.type) {
-      case 1:
-        this.url = 'api/books';
-        break;
-      case 2:
-        this.url = 'api/authors';
-        break;
-      case 3:
-        this.url = 'api/genres';
-        break;
-      case 4:
-        this.url = 'api/tags';
-        break;
-    }
-  }
-
-  getData() {
+  private getData() {
     return this.service.getData(this.data.slug, this.url)
       .pipe(take(1))
       .subscribe(
         {
           next: (data: any) => {
-            this.dataSource = data;
+            this.dataSource = data
           }
         }
       );
   }
 
-  openModal(slug: string, type: number): void {
-    if (!this.isEdit) {
-      this.dialogRef.close();
-      this.dialog.open(ModalComponent, {
-        data: {
-          type: type,
-          slug: slug
-        }
-      });
+  private getUrl() {
+    switch (this.data.type) {
+      case 1:
+        this.url = 'api/books'
+        break
+      case 2:
+        this.url = 'api/authors'
+        break
+      case 3:
+        this.url = 'api/genres'
+        break;
+      case 4:
+        this.url = 'api/tags'
+        break
     }
   }
 
   edit() {
-    this.isEdit = !this.isEdit;
+    this.isEdit = !this.isEdit
     if (this.isEdit) {
     } else {
       this.service.saveContent(this.url, this.dataSource)
@@ -86,44 +62,29 @@ export class ModalComponent implements OnInit {
         .subscribe(
           {
             next: (data: any) => {
-              this.dataSource = data;
+              this.dataSource = data
             }
           }
         );
     }
   }
 
-  untie() {
-  }
-
-  openSelectFile() {
-    if (this.isEdit) {
-      this.image.nativeElement.click()
-    }
-  }
-
-  changeImage(event: Event) {
-    if (this.isEdit) {
-      const input = event.target as HTMLInputElement;
-      if (input.files && input.files.length > 0) {
-        let newPhotoFormData = new FormData()
-        newPhotoFormData.append('file', input.files[0])
-        this.service.saveImage(newPhotoFormData)
-          .pipe(take(1))
-          .subscribe(
-            {
-              next: (data: any) => {
-                this.dataSource.image = data[0].name;
-                this.dataSource.imageId = data[0].id;
-              }
+  saveImage(formData: FormData) {
+    this.service.saveImage(formData)
+      .pipe(take(1))
+      .subscribe(
+        {
+          next: (image: any) => {
+            if (this.data.type == 1) {
+              this.dataSource.image = image[0].name
+              this.dataSource.imageId = image[0].id
+            } else {
+              this.dataSource.image.id = image[0].id
+              this.dataSource.image.name = image[0].name
             }
-          )
-      }
-    }
-  }
-
-  deleteLink(list: any, item: any) {
-    list.splice(list.indexOf(item), 1)
+          }
+        }
+      )
   }
 
 }

@@ -15,7 +15,7 @@ export class QueryParamDirective<Q extends QueryParams> {
   constructor() {
   }
 
-  protected change() : void {
+  protected change(): void {
     console.log(this.queryParams);
     this.queryParamsChange.emit(this.queryParams)
   }

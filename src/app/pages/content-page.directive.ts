@@ -10,7 +10,7 @@ import {ModalComponent} from "./modal/modal.component";
 @Directive({
   selector: '[appContent]'
 })
-export class ContentDirective implements OnInit {
+export class ContentPageDirective implements OnInit {
 
   url!: string;
   dataSource: MatTableDataSource<DataPage>;

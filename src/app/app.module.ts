@@ -17,8 +17,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {AuthorsPageComponent} from './pages/author/authors-page.component';
-import {ContentDirective} from './pages/content.directive';
+import {AuthorsPageComponent} from './pages/author-page/authors-page.component';
+import {ContentPageDirective} from './pages/content-page.directive';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {DatePipe} from '@angular/common';
@@ -30,12 +30,16 @@ import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
-import { FilterComponent } from './components/filter/filter.component';
-import { TableAuthorComponent } from './components/table-author/table-author.component';
-import { TableBookComponent } from './components/table-book/table-book.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { QueryParamDirective } from './components/query-param.directive';
-import { TableDirective } from './components/table.directive';
+import {FilterComponent} from './components/filter/filter.component';
+import {TableAuthorComponent} from './components/table-author/table-author.component';
+import {TableBookComponent} from './components/table-book/table-book.component';
+import {PaginatorComponent} from './components/paginator/paginator.component';
+import {QueryParamDirective} from './components/query-param.directive';
+import {TableDirective} from './components/table.directive';
+import {ModalDirective} from './components/modal.directive';
+import {ListContentComponent} from './components/list-content/list-content.component';
+import {BookModalComponent} from './components/book-modal/book-modal.component';
+import {AuthorModalComponent} from './components/author-modal/author-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,14 +47,18 @@ import { TableDirective } from './components/table.directive';
     NavigationComponent,
     BooksPageComponent,
     AuthorsPageComponent,
-    ContentDirective,
+    ContentPageDirective,
     ModalComponent,
     FilterComponent,
     TableAuthorComponent,
     TableBookComponent,
     PaginatorComponent,
     QueryParamDirective,
-    TableDirective
+    TableDirective,
+    ModalDirective,
+    ListContentComponent,
+    BookModalComponent,
+    AuthorModalComponent
   ],
   imports: [
     BrowserModule,

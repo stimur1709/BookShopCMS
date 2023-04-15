@@ -1,14 +1,19 @@
 <ng-container>
 
-  <app-filter class="fixed-filter" style="margin-bottom: 50px"
+  <app-filter class="filter"
               [(queryParams)]="queryParams" [(filter)]="filter"
               [type]="2" (queryParamsChange)="getData()">
   </app-filter>
 
-  <div class="mat-elevation-z8 table-container" style="{{filter ? 'max-height: 452px' : 'max-height: 523px'}}">
+  <div class="mat-elevation-z8 table-container"
+       style="{{filter ? 'height: calc(100vh - 269px)' : 'height: calc(100vh - 199px)'}}">
     <app-table-book [(queryParams)]="queryParams" [dataSource]="dataSource"
                     [paginatorParams]="paginatorParams" (queryParamsChange)="getData()">
     </app-table-book>
   </div>
+
+  <app-paginator [(queryParams)]="queryParams" [paginatorParams]="paginatorParams"
+                 (queryParamsChange)="getData()">
+  </app-paginator>
 </ng-container>
 

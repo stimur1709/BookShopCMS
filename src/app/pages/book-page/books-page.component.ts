@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {BookQueryParams} from "../../model/QueryParams";
-import {ContentDirective} from "../content.directive";
+import {ContentPageDirective} from "../content-page.directive";
 
 @Component({
   selector: 'app-book-page',
   templateUrl: './books-page.component.html',
   styleUrls: ['./books-page.component.css'],
 })
-export class BooksPageComponent extends ContentDirective {
+export class BooksPageComponent extends ContentPageDirective {
 
   override displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate'];
   override url: string = 'api/books';

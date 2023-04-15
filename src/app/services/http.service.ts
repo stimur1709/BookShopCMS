@@ -14,7 +14,7 @@ export class HttpService {
 
   getAll(queryParams: QueryParams, url: string): Observable<any> {
     return this.http.get<any>(
-      environment.apiBaseUrl  + '/' + url + this.generateQueryParams(queryParams)
+      environment.apiBaseUrl + '/' + url + this.generateQueryParams(queryParams)
     );
   }
 
@@ -42,7 +42,7 @@ export class HttpService {
     return finalQueryParams
   }
 
-  saveContent( url: string, dataSource: any) {
+  saveContent(url: string, dataSource: any) {
     console.log(dataSource)
     return this.http.post(
       environment.apiBaseUrl + '/' + url + '/save', dataSource
