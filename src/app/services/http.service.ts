@@ -12,22 +12,44 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(queryParams: QueryParams, url: string): Observable<any> {
+  getAll(queryParams: QueryParams, type: number): Observable<any> {
+    console.log(queryParams)
     return this.http.get<any>(
-      environment.apiBaseUrl + '/' + url + this.generateQueryParams(queryParams)
-    );
+      environment.apiBaseUrl + '/' + this.getUrl(type) + this.generateQueryParams(queryParams)
+    )
   }
 
-  getData(slug: string, url: string): Observable<any> {
+  getData(slug: string, type: number): Observable<any> {
     return this.http.get<any>(
-      environment.apiBaseUrl + '/' + url + '/' + slug
-    );
+      environment.apiBaseUrl + '/' + this.getUrl(type) + '/' + slug
+    )
   }
 
   saveImage(data: FormData) {
     return this.http.post<any>(
       environment.apiBaseUrl + '/api/image/file', data
-    );
+    )
+  }
+
+  saveContent(type: number, dataSource: any) {
+    return this.http.post(
+      environment.apiBaseUrl + '/' + this.getUrl(type) + '/save', dataSource
+    )
+  }
+
+  private getUrl(type: number): string {
+    switch (type) {
+      case 1:
+        return 'api/books'
+      case 2:
+        return 'api/authors'
+      case 3:
+        return 'api/genres'
+      case 4:
+        return 'api/tags'
+      default:
+        return ''
+    }
   }
 
   private generateQueryParams(queryParams: QueryParams): string {
@@ -40,13 +62,6 @@ export class HttpService {
       }
     }
     return finalQueryParams
-  }
-
-  saveContent(url: string, dataSource: any) {
-    console.log(dataSource)
-    return this.http.post(
-      environment.apiBaseUrl + '/' + url + '/save', dataSource
-    );
   }
 
 }

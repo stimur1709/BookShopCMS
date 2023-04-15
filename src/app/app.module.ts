@@ -40,6 +40,8 @@ import {ModalDirective} from './components/modal.directive';
 import {ListContentComponent} from './components/list-content/list-content.component';
 import {BookModalComponent} from './components/book-modal/book-modal.component';
 import {AuthorModalComponent} from './components/author-modal/author-modal.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,9 @@ import {AuthorModalComponent} from './components/author-modal/author-modal.compo
     MatCardModule,
     MatListModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   providers: [
     DatePipe

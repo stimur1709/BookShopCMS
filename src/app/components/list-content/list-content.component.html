@@ -1,10 +1,35 @@
 <mat-card-subtitle>{{title}}
-  <ng-container *ngFor="let data of dataSource; last as asLast">
-    <a [className]="!isEdit ? 'link' : 'link-delete'"
-       [title]="!isEdit ? 'open' : 'delete'"
-       (click)="!isEdit ? openModal(data.slug, 2) : deleteLink(dataSource, data)">
-      {{type == 1 ? data.title : data.name}}
-      <span *ngIf="!asLast && !isEdit">, </span>
-    </a>
+
+  <ng-container *ngIf="!isEdit">
+    <ng-container  *ngFor="let data of dataSource; last as asLast">
+      <a [className]="!isEdit ? 'link' : 'link-delete'"
+         [title]="!isEdit ? 'open' : 'delete'"
+         (click)="!isEdit ? openModal(data.slug, 2) : deleteLink(dataSource, data)">
+        {{type == 1 ? data.title : data.name}}
+        <span *ngIf="!asLast && !isEdit">, </span>
+      </a>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isEdit">
+    <mat-form-field class="example-chip-list" appearance="fill" style="width: 100%;">
+      <mat-chip-grid #chipGrid aria-label="Fruit selection">
+        <mat-chip-row *ngFor="let data of dataSource" (removed)="remove(data)">
+          {{data.name}}
+          <button matChipRemove [attr.aria-label]="'remove ' + data.slug">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      </mat-chip-grid>
+      <input placeholder="New Fruit..." #input [formControl]="formControl"
+             [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (input)="add()"/>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let data of dataSourceAll" [value]="data">
+          {{data.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </ng-container>
 </mat-card-subtitle>

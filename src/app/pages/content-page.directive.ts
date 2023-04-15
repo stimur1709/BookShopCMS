@@ -12,7 +12,7 @@ import {ModalComponent} from "./modal/modal.component";
 })
 export class ContentPageDirective implements OnInit {
 
-  url!: string;
+  url!: number;
   dataSource: MatTableDataSource<DataPage>;
   displayedColumns!: string[];
   filter: boolean = false;
@@ -49,7 +49,7 @@ export class ContentPageDirective implements OnInit {
             this.paginatorParams.totalElements = data.totalElements
           }
         }
-      );
+      )
   }
 
   openModal(slug: string, type: number): void {

@@ -10,6 +10,7 @@ import {DataModal} from "../model/QueryParams";
 export class ModalDirective {
 
   @Input() dataSource!: any
+  @Input() data!: any
   @Output() dataSourceChange = new EventEmitter<any>()
   @Input() isEdit = false;
   @Output() isEditChange = new EventEmitter<boolean>()
@@ -17,7 +18,7 @@ export class ModalDirective {
   @ViewChild('image', {read: ElementRef}) image: ElementRef
   env = environment;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DataModal,
+  constructor(@Inject(MAT_DIALOG_DATA) public queryModal: DataModal,
               public dialogRef: MatDialogRef<ModalComponent>,
               public dialog: MatDialog) {
   }

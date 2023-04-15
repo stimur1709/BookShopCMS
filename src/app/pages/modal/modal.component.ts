@@ -12,7 +12,7 @@ import {DataModal} from "../../model/QueryParams";
 export class ModalComponent implements OnInit {
 
   isEdit = false;
-  url!: string;
+  url!: number;
   dataSource!: any;
 
   constructor(private service: HttpService,
@@ -20,12 +20,11 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUrl()
     this.getData()
   }
 
   private getData() {
-    return this.service.getData(this.data.slug, this.url)
+    return this.service.getData(this.data.slug, this.data.type)
       .pipe(take(1))
       .subscribe(
         {
@@ -36,28 +35,11 @@ export class ModalComponent implements OnInit {
       );
   }
 
-  private getUrl() {
-    switch (this.data.type) {
-      case 1:
-        this.url = 'api/books'
-        break
-      case 2:
-        this.url = 'api/authors'
-        break
-      case 3:
-        this.url = 'api/genres'
-        break;
-      case 4:
-        this.url = 'api/tags'
-        break
-    }
-  }
-
   edit() {
     this.isEdit = !this.isEdit
     if (this.isEdit) {
     } else {
-      this.service.saveContent(this.url, this.dataSource)
+      this.service.saveContent(this.data.type, this.dataSource)
         .pipe(take(1))
         .subscribe(
           {

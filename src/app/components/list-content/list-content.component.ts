@@ -1,4 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormControl} from "@angular/forms";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import {HttpService} from "../../services/http.service";
+import {take} from "rxjs";
+import {QueryParams} from "../../model/QueryParams";
 
 @Component({
   selector: 'app-list-content',
@@ -7,24 +13,68 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ListContentComponent implements OnInit {
 
-  @Input()
-  dataSource!: any
-
-  @Output()
-  dataSourceChange = new EventEmitter<any>()
-
-  @Input()
-  isEdit = false;
-
-  @Input()
-  type!: number
-
+  @Input() dataSource!: any
+  @Output() dataSourceChange = new EventEmitter<any>()
+  @Input() isEdit: boolean;
+  @Input() type!: number
+  @Input() queryModal!: number
+  formControl = new FormControl('');
   title: string;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  dataSourceAll!: any
+
+  @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
+
+  queryParams: QueryParams = {
+    offset: 0,
+    limit: 5,
+    reverse: true,
+    property: null,
+    search: null,
+    ids: null
+  }
 
   ngOnInit(): void {
     this.title = this.getTitle()
+    this.queryParams.ids = this.dataSource.map((v: { id: any; }) => v.id)
+    this.getData()
   }
 
+  constructor(private service: HttpService) {
+  }
+
+  add(): void {
+    this.queryParams.search = this.inputElement.nativeElement.value
+    this.getData()
+
+  }
+
+  remove(fruit: string): void {
+    const index = this.dataSource.indexOf(fruit);
+
+    if (index >= 0) {
+      this.dataSource.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.dataSource.push(event.option.value);
+    this.inputElement.nativeElement.value = '';
+    this.formControl.setValue(null);
+  }
+
+  private getData() {
+    this.queryParams.ids = this.dataSource.map((v: { id: any; }) => v.id)
+    this.service.getAll(this.queryParams, this.type)
+      .pipe(take(1))
+      .subscribe(
+        {
+          next: (data: any) => {
+            this.dataSourceAll = data.content
+          }
+        }
+      );
+  }
 
   openModal(slug: string, type: number): void {
     if (!this.isEdit) {

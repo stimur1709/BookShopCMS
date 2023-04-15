@@ -1,9 +1,10 @@
 export interface QueryParams {
-  search: string | null,
+  search?: string | null,
   offset: number,
   limit: number,
-  reverse: boolean,
-  property: string | null
+  reverse?: boolean,
+  property?: string | null
+  ids?: number[] | null
 }
 
 export interface PaginatorParams {
