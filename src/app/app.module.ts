@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavigationComponent} from './components/navigation/navigation.component';
-import {BookPageComponent} from './pages/book-page/book-page.component';
+import {BooksPageComponent} from './pages/book-page/books-page.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -17,7 +17,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {AuthorComponent} from './pages/author/author.component';
+import {AuthorsPageComponent} from './pages/author/authors-page.component';
 import {ContentDirective} from './pages/content.directive';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -31,16 +31,26 @@ import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
 import { FilterComponent } from './components/filter/filter.component';
+import { TableAuthorComponent } from './components/table-author/table-author.component';
+import { TableBookComponent } from './components/table-book/table-book.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { QueryParamDirective } from './components/query-param.directive';
+import { TableDirective } from './components/table.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    BookPageComponent,
-    AuthorComponent,
+    BooksPageComponent,
+    AuthorsPageComponent,
     ContentDirective,
     ModalComponent,
-    FilterComponent
+    FilterComponent,
+    TableAuthorComponent,
+    TableBookComponent,
+    PaginatorComponent,
+    QueryParamDirective,
+    TableDirective
   ],
   imports: [
     BrowserModule,

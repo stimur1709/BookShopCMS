@@ -1,0 +1,9 @@
+<mat-paginator showFirstLastButtons class="fixed-paginator"
+
+               (page)="pageChanged($event)"
+               aria-label="Select page"
+               [pageSizeOptions]="[10, 25, 50, 100]"
+               [pageIndex]="queryParams.offset"
+               [pageSize]="queryParams.limit"
+               [length]="paginatorParams.totalElements"
+></mat-paginator>

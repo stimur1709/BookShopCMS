@@ -2,13 +2,13 @@
   <mat-icon>search</mat-icon>
 </button>
 
-<div class="mat-elevation-z8 col-md-8" *ngIf="filter">
+<div class="mat-elevation-z8 col-md-8 filter" *ngIf="filter">
 
   <div class="row">
     <button style="margin: 10px 0 0 17px;" *ngIf="filter" (click)="showFilter()" mat-icon-button color="primary">
       <mat-icon>keyboard_arrow_up</mat-icon>
     </button>
-    <mat-form-field class="col-md-6 input">
+    <mat-form-field class="{{type == 2 ? 'col-md-6 input' : 'col-md-10 input'}}">
       <mat-label>Filter</mat-label>
       <input matInput (input)="applyInput()" placeholder="Ex. ium" #inputElement>
       <button *ngIf="inputElement" matSuffix mat-icon-button color="primary" aria-label="Clear" (click)="clearInput()">

@@ -4,10 +4,10 @@ import {ContentDirective} from "../content.directive";
 
 @Component({
   selector: 'app-book-page',
-  templateUrl: './book-page.component.html',
-  styleUrls: ['./book-page.component.css'],
+  templateUrl: './books-page.component.html',
+  styleUrls: ['./books-page.component.css'],
 })
-export class BookPageComponent extends ContentDirective {
+export class BooksPageComponent extends ContentDirective {
 
   override displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate'];
   override url: string = 'api/books';

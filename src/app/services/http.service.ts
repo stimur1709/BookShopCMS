@@ -25,7 +25,6 @@ export class HttpService {
   }
 
   saveImage(data: FormData) {
-    console.log("фото")
     return this.http.post<any>(
       environment.apiBaseUrl + '/api/image/file', data
     );

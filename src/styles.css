@@ -57,12 +57,16 @@ img {
   margin: 5px 4px -5px;
 }
 
+.filter {
+  background: white;
+  margin-top: 5px;
+}
+
+
 .fixed-filter {
   position: sticky;
   top: 91px;
   z-index: 100;
-  background: white;
-  margin-top: 5px;
 }
 
 .fixed-table {

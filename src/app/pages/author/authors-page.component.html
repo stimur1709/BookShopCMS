@@ -1,0 +1,17 @@
+<ng-container>
+
+  <app-filter class="fixed-filter" style="margin-bottom: 50px"
+              [(queryParams)]="queryParams" [(filter)]="filter"
+              [type]="1" (queryParamsChange)="getData()">
+  </app-filter>
+
+  <div class="mat-elevation-z8 table-container" style="{{filter ? 'max-height: 470px' : 'max-height: 510px'}}">
+
+    <app-table-author [(queryParams)]="queryParams" [dataSource]="dataSource"
+                      [paginatorParams]="paginatorParams" (queryParamsChange)="getData()">
+    </app-table-author>
+
+  </div>
+
+</ng-container>
+
