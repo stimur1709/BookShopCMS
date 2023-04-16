@@ -44,6 +44,7 @@ export class ModalComponent implements OnInit {
     if (this.isEdit) {
       this.formBuild()
     } else {
+
       this.service.saveContent(this.data.type, this.dataSource)
         .pipe(take(1))
         .subscribe(
@@ -87,14 +88,10 @@ export class ModalComponent implements OnInit {
       ]),
       discount: new FormControl(this.dataSource.discount, [
         Validators.required,
-        Validators.min(1),
+        Validators.min(0),
         Validators.max(100)
       ]),
-      description: new FormControl(this.dataSource.description, [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(255)
-      ])
+      description: new FormControl(this.dataSource.description)
     })
   }
 

@@ -12,8 +12,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return next.handle(req).pipe(catchError((err: HttpErrorResponse): any => {
 
-      console.log(err.error)
-
       switch (err.status) {
         case 409:
           this.infoService.openSnackBar(err.error)

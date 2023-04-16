@@ -51,7 +51,8 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="edit()" cdkFocusInitial>{{isEdit ? 'save' : 'edit'}}</button>
+    <button mat-button (click)="edit()" [disabled]="isEdit && this.formGroup.status == 'INVALID'"
+            cdkFocusInitial>{{isEdit ? 'save' : 'edit'}}</button>
   </mat-dialog-actions>
 
 </div>

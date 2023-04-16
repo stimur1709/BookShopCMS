@@ -15,6 +15,7 @@ export class ModalDirective {
   @Output() dataSourceChange = new EventEmitter<any>()
   @Input() isEdit = false;
   @Input() formGroup!: FormGroup
+  // @Output() formGroupChange = new EventEmitter<FormGroup>()
   @Output() isEditChange = new EventEmitter<boolean>()
   @Output() photoChange = new EventEmitter<FormData>()
   @ViewChild('image', {read: ElementRef}) image: ElementRef

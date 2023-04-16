@@ -16,6 +16,9 @@
               <mat-label>Enter your title</mat-label>
               <input matInput placeholder="new title" value="{{dataSource.title}}"
                      (change)="change()" formControlName="title">
+              <mat-error>
+                Email is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
         </mat-card-title>
@@ -27,12 +30,12 @@
             </ng-container>
 
             <span *ngSwitchDefault style="display: grid">
-                  <span class="Card-priceOld">Цена: {{dataSource.price | currency: '₽'}}</span>
-                    <span class="Card-price">
-                      Цена со скидкой {{ dataSource.discount | percent: '1.0'}}:
-                      {{dataSource.price - (dataSource.discount * dataSource.price) | currency: '₽'}}
-                    </span>
-                </span>
+                <span class="Card-priceOld">Цена: {{dataSource.price | currency: '₽'}}</span>
+                  <span class="Card-price">
+                    Цена со скидкой {{ dataSource.discount | percent: '1.0'}}:
+                    {{dataSource.price - (dataSource.discount * dataSource.price) | currency: '₽'}}
+                  </span>
+              </span>
           </div>
 
           <div *ngIf="isEdit">
@@ -41,13 +44,19 @@
               <input matInput type="number" min="10" class="example-right-align" placeholder="0"
                      value="{{dataSource.price}}" (change)="change()" formControlName="price">
               <span matTextPrefix>RUB&nbsp;</span>
+              <mat-error>
+                Email is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field class="input" appearance="fill" floatLabel="always">
               <mat-label>Amount</mat-label>
-              <input matInput type="number" min="1" max="100" class="example-right-align" placeholder="0"
+              <input matInput type="number" min="0" max="1" step="0.05" class="example-right-align" placeholder="0"
                      value="{{dataSource.discount}}" (change)="change()" formControlName="discount">
               <span matTextPrefix>%&nbsp;</span>
+              <mat-error>
+                Email is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
         </mat-card-subtitle>
@@ -85,10 +94,14 @@
         </span>
 
        <form [formGroup]="formGroup">
-         <mat-form-field appearance="fill" style="width: 100%" *ngIf="isEdit">
+         <mat-form-field appearance="fill" style="width: 100%; margin-top: 5px" *ngIf="isEdit">
            <mat-label>Textarea</mat-label>
            <textarea style="height: 300px" matInput value="{{dataSource.description}}"
-                     (change)="change()" formControlName="description"></textarea>
+                     (change)="change()" formControlName="description" required>
+           </textarea>
+           <mat-error>
+             Email is <strong>required</strong>
+           </mat-error>
          </mat-form-field>
        </form>
       </mat-tab>
