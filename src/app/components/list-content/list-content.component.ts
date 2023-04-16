@@ -46,7 +46,6 @@ export class ListContentComponent implements OnInit {
   add(): void {
     this.queryParams.search = this.inputElement.nativeElement.value
     this.getData()
-
   }
 
   remove(fruit: string): void {
@@ -58,12 +57,13 @@ export class ListContentComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.dataSource.push(event.option.value);
-    this.inputElement.nativeElement.value = '';
-    this.formControl.setValue(null);
+    this.dataSource.push(event.option.value)
+    this.inputElement.nativeElement.value = ''
+    this.formControl.setValue(null)
+    this.getData()
   }
 
-  private getData() {
+  getData() {
     this.queryParams.ids = this.dataSource.map((v: { id: any; }) => v.id)
     this.service.getAll(this.queryParams, this.type)
       .pipe(take(1))

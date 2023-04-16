@@ -3,6 +3,7 @@ import {environment} from "../environments/environment";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ModalComponent} from "../pages/modal/modal.component";
 import {DataModal} from "../model/QueryParams";
+import {FormGroup} from "@angular/forms";
 
 @Directive({
   selector: '[appModal]'
@@ -13,9 +14,11 @@ export class ModalDirective {
   @Input() data!: any
   @Output() dataSourceChange = new EventEmitter<any>()
   @Input() isEdit = false;
+  @Input() formGroup!: FormGroup
   @Output() isEditChange = new EventEmitter<boolean>()
   @Output() photoChange = new EventEmitter<FormData>()
   @ViewChild('image', {read: ElementRef}) image: ElementRef
+  @ViewChild('title', {read: ElementRef}) title: ElementRef
   env = environment;
 
   constructor(@Inject(MAT_DIALOG_DATA) public queryModal: DataModal,
@@ -39,6 +42,13 @@ export class ModalDirective {
         this.photoChange.emit(newPhotoFormData);
       }
     }
+  }
+
+  change() {
+    this.dataSource.title = this.formGroup.value.title
+    this.dataSource.price = this.formGroup.value.price
+    this.dataSource.discount = this.formGroup.value.discount
+    this.dataSource.description = this.formGroup.value.description
   }
 
 

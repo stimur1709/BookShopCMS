@@ -8,5 +8,4 @@ import {ModalDirective} from "../modal.directive";
 })
 export class BookModalComponent extends ModalDirective {
 
-
 }

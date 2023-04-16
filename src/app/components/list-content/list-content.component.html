@@ -1,4 +1,5 @@
-<mat-card-subtitle>{{title}}
+<mat-card-subtitle>
+  <span *ngIf="!isEdit">{{title + ':'}}</span>
 
   <ng-container *ngIf="!isEdit">
     <ng-container  *ngFor="let data of dataSource; last as asLast">
@@ -13,10 +14,11 @@
 
   <ng-container *ngIf="isEdit">
     <mat-form-field class="example-chip-list" appearance="fill" style="width: 100%;">
+      <mat-label>{{title + ':'}}</mat-label>
       <mat-chip-grid #chipGrid aria-label="Fruit selection">
         <mat-chip-row *ngFor="let data of dataSource" (removed)="remove(data)">
           {{data.name}}
-          <button matChipRemove [attr.aria-label]="'remove ' + data.slug">
+          <button matChipRemove >
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
