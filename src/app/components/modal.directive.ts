@@ -1,7 +1,6 @@
 import {Directive, ElementRef, EventEmitter, Inject, Input, Output, ViewChild} from '@angular/core';
 import {environment} from "../environments/environment";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {ModalComponent} from "../pages/modal/modal.component";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {DataModal} from "../model/QueryParams";
 import {FormGroup} from "@angular/forms";
 
@@ -12,21 +11,15 @@ export class ModalDirective {
 
   @Input() dataSource!: any
   @Input() data!: any
-  @Output() dataSourceChange = new EventEmitter<any>()
   @Input() isEdit = false;
-  @Input() formGroup!: FormGroup
-  // @Output() formGroupChange = new EventEmitter<FormGroup>()
-  @Output() isEditChange = new EventEmitter<boolean>()
+  @Input() formModal!: FormGroup
   @Output() photoChange = new EventEmitter<FormData>()
   @ViewChild('image', {read: ElementRef}) image: ElementRef
   @ViewChild('title', {read: ElementRef}) title: ElementRef
   env = environment;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public queryModal: DataModal,
-              public dialogRef: MatDialogRef<ModalComponent>,
-              public dialog: MatDialog) {
+  constructor(@Inject(MAT_DIALOG_DATA) public queryModal: DataModal) {
   }
-
 
   openSelectFile() {
     if (this.isEdit) {
@@ -46,11 +39,14 @@ export class ModalDirective {
   }
 
   change() {
-    this.dataSource.title = this.formGroup.value.title
-    this.dataSource.price = this.formGroup.value.price
-    this.dataSource.discount = this.formGroup.value.discount
-    this.dataSource.description = this.formGroup.value.description
+    if (this.queryModal.type == 1) {
+      this.dataSource.title = this.formModal.value.title
+      this.dataSource.price = this.formModal.value.price
+      this.dataSource.discount = this.formModal.value.discount
+    } else if (this.queryModal.type == 2) {
+      this.dataSource.name = this.formModal.value.name
+    }
+    this.dataSource.description = this.formModal.value.description
   }
-
 
 }

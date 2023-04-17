@@ -8,16 +8,16 @@
     </div>
 
     <mat-card-title-group style="display: contents">
-      <form class="form-modal" [formGroup]="formGroup">
+      <form class="form-modal" [formGroup]="formModal">
         <mat-card-title *ngIf="!isEdit">{{dataSource.title}}</mat-card-title>
         <mat-card-title *ngIf="isEdit">
           <div class="example-container">
             <mat-form-field class="col-md-12 input" appearance="fill">
-              <mat-label>Enter your title</mat-label>
-              <input matInput placeholder="new title" value="{{dataSource.title}}"
+              <mat-label>{{'MODAL.ENTER_TITLE' | translate}}</mat-label>
+              <input matInput placeholder="{{'CONTENT.TITLE' | translate}}" value="{{dataSource.title}}"
                      (change)="change()" formControlName="title">
               <mat-error>
-                Email is <strong>required</strong>
+                {{'VALID.TITLE' | translate}}
               </mat-error>
             </mat-form-field>
           </div>
@@ -26,13 +26,17 @@
         <mat-card-subtitle>
           <div *ngIf="!isEdit" [ngSwitch]="dataSource.discount">
             <ng-container *ngSwitchCase="0">
-              <span class="Card-price" *ngIf="!isEdit">{{dataSource.price | number: '1.2-2'}}</span>
+              <span *ngIf="!isEdit">
+                {{'CONTENT.PRICE' | translate}}: {{dataSource.price | number: '1.2-2'}}
+              </span>
             </ng-container>
 
             <span *ngSwitchDefault style="display: grid">
-                <span class="Card-priceOld">Цена: {{dataSource.price | currency: '₽'}}</span>
+                <span class="Card-priceOld">
+                  {{'CONTENT.PRICE' | translate}}: {{dataSource.price | currency: '₽'}}
+                </span>
                   <span class="Card-price">
-                    Цена со скидкой {{ dataSource.discount | percent: '1.0'}}:
+                    {{'CONTENT.DIS_PRICE' | translate}}: {{ dataSource.discount | percent: '1.0'}}:
                     {{dataSource.price - (dataSource.discount * dataSource.price) | currency: '₽'}}
                   </span>
               </span>
@@ -40,40 +44,40 @@
 
           <div *ngIf="isEdit">
             <mat-form-field class="input" appearance="fill" floatLabel="always">
-              <mat-label>Amount</mat-label>
+              <mat-label>{{'CONTENT.PRICE' | translate}}</mat-label>
               <input matInput type="number" min="10" class="example-right-align" placeholder="0"
                      value="{{dataSource.price}}" (change)="change()" formControlName="price">
-              <span matTextPrefix>RUB&nbsp;</span>
+              <span matTextPrefix>₽&nbsp;</span>
               <mat-error>
-                Email is <strong>required</strong>
+                {{'VALID.PRICE' | translate}}
               </mat-error>
             </mat-form-field>
 
             <mat-form-field class="input" appearance="fill" floatLabel="always">
-              <mat-label>Amount</mat-label>
+              <mat-label>{{'CONTENT.DISCOUNT' | translate}}</mat-label>
               <input matInput type="number" min="0" max="1" step="0.05" class="example-right-align" placeholder="0"
                      value="{{dataSource.discount}}" (change)="change()" formControlName="discount">
               <span matTextPrefix>%&nbsp;</span>
               <mat-error>
-                Email is <strong>required</strong>
+                {{'VALID.DISCOUNT' | translate}}
               </mat-error>
             </mat-form-field>
           </div>
         </mat-card-subtitle>
 
         <mat-card-subtitle>
-          {{'rate: ' + dataSource.rate}}
+          {{'CONTENT.RATE' | translate}}: {{dataSource.rate}}
         </mat-card-subtitle>
 
-        <app-list-content [(dataSource)]="dataSource.authorList" [isEdit]="isEdit"
+        <app-list-content [dataSource]="dataSource.authorList" [isEdit]="isEdit"
                           [type]="2">
         </app-list-content>
 
-        <app-list-content [(dataSource)]="dataSource.genreList" [isEdit]="isEdit"
+        <app-list-content [dataSource]="dataSource.genreList" [isEdit]="isEdit"
                           [type]="3">
         </app-list-content>
 
-        <app-list-content [(dataSource)]="dataSource.tagList" [isEdit]="isEdit"
+        <app-list-content [dataSource]="dataSource.tagList" [isEdit]="isEdit"
                           [type]="4">
         </app-list-content>
 
@@ -86,30 +90,27 @@
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">thumb_up</mat-icon>
-          Description
+          {{'CONTENT.DESCRIPTION' | translate}}
         </ng-template>
 
         <span *ngIf="!isEdit">
                 {{dataSource.description}}
         </span>
 
-       <form [formGroup]="formGroup">
-         <mat-form-field appearance="fill" style="width: 100%; margin-top: 5px" *ngIf="isEdit">
-           <mat-label>Textarea</mat-label>
-           <textarea style="height: 300px" matInput value="{{dataSource.description}}"
-                     (change)="change()" formControlName="description" required>
+        <form [formGroup]="formModal">
+          <mat-form-field appearance="fill" style="width: 100%; margin-top: 5px" *ngIf="isEdit">
+            <mat-label>{{'MODAL.ENTER_DESCRIPTION' | translate}}</mat-label>
+            <textarea style="height: 300px" matInput value="{{dataSource.description}}"
+                      (change)="change()" formControlName="description">
            </textarea>
-           <mat-error>
-             Email is <strong>required</strong>
-           </mat-error>
-         </mat-form-field>
-       </form>
+          </mat-form-field>
+        </form>
       </mat-tab>
 
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">thumb_up</mat-icon>
-          Transactional
+          {{'CONTENT.TRANSACTIONAL' | translate}}
         </ng-template>
       </mat-tab>
 

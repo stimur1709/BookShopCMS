@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {BooksPageComponent} from './pages/book-page/books-page.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
@@ -44,6 +44,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ErrorInterceptor} from "./helpers/error-interceptor.service";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import { GenrePageComponent } from './pages/genre-page/genre-page.component';
+import { TagPageComponent } from './pages/tag-page/tag-page.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http)
+}
 
 @NgModule({
   declarations: [
@@ -62,7 +70,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ModalDirective,
     ListContentComponent,
     BookModalComponent,
-    AuthorModalComponent
+    AuthorModalComponent,
+    GenrePageComponent,
+    TagPageComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +101,15 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatTabsModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'ru'
+    })
   ],
   providers: [
     DatePipe,

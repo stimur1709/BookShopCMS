@@ -1,23 +1,19 @@
-import {Directive, Input} from '@angular/core';
+import {Directive, EventEmitter, Input, Output} from '@angular/core';
 import {Sort} from "@angular/material/sort";
 import {QueryParamDirective} from "./query-param.directive";
-import {PaginatorParams, QueryParams} from "../model/QueryParams";
+import {PaginatorParams} from "../model/QueryParams";
 import {MatTableDataSource} from "@angular/material/table";
-import {DataPage} from "../model/DataPage";
 import {ModalComponent} from "../pages/modal/modal.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Directive({
   selector: '[appTable]'
 })
-export class TableDirective<Q extends QueryParams> extends QueryParamDirective<Q> {
+export class TableDirective extends QueryParamDirective {
 
-  @Input()
-  dataSource: MatTableDataSource<DataPage>
-
-  @Input()
-  paginatorParams: PaginatorParams
-
+  @Input() dataSource: MatTableDataSource<any>
+  @Output() dataSourceChange = new EventEmitter<any>();
+  @Input() paginatorParams: PaginatorParams
   displayedColumns!: string[]
 
   constructor(public dialog: MatDialog) {
@@ -30,17 +26,19 @@ export class TableDirective<Q extends QueryParams> extends QueryParamDirective<Q
     this.change()
   }
 
-  pageChanged(): void {
-    this.change()
-  }
-
-  openModal(slug: string, type: number): void {
-    this.dialog.open(ModalComponent, {
+  openModal(element: any, type: number): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
       data: {
         type: type,
-        slug: slug
+        slug: element.slug
       }
     })
+
+    dialogRef.afterClosed().subscribe(
+      () => {
+        this.change()
+      }
+    )
   }
 
 }

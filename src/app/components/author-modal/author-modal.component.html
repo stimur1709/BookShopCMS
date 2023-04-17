@@ -7,11 +7,43 @@
         <input style="display: none" type="file" multiple accept="image/*" (change)="changeImage($event)" #image>
       </div>
 
-      <app-list-content [(dataSource)]="dataSource.bookList" [type]="1"></app-list-content>
+      <form class="form-modal" [formGroup]="formModal">
+        <mat-card-title *ngIf="!isEdit">{{dataSource.name}}</mat-card-title>
+        <mat-card-title *ngIf="isEdit">
+          <div class="example-container">
+            <mat-form-field class="col-md-12 input" appearance="fill">
+              <mat-label>{{'MODAL.ENTER_NAME' | translate}}</mat-label>
+              <input matInput placeholder="{{'CONTENT.NAME' | translate}}" value="{{dataSource.name}}"
+                     (change)="change()" formControlName="name">
+              <mat-error>
+                {{'VALID.NAME' | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-title>
+
+        <mat-card-title-group style="display: contents">
+          <app-list-content style="width: 100%;" [dataSource]="dataSource.bookList" [isEdit]="isEdit" [type]="1">
+          </app-list-content>
+        </mat-card-title-group>
+
+      </form>
+
 
     </mat-card-header>
     <mat-card-content>
-      {{dataSource.description}}
+      <span *ngIf="!isEdit">
+        {{dataSource.description}}
+      </span>
+
+      <form [formGroup]="formModal">
+        <mat-form-field appearance="fill" style="width: 100%; margin-top: 5px" *ngIf="isEdit">
+          <mat-label>{{'MODAL.ENTER_DESCRIPTION' | translate}}</mat-label>
+          <textarea style="height: 300px" matInput value="{{dataSource.description}}"
+                    (change)="change()" formControlName="description">
+           </textarea>
+        </mat-form-field>
+      </form>
     </mat-card-content>
   </mat-card>
 </ng-container>
