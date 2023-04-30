@@ -1,0 +1,45 @@
+<div style="margin-top: 74px">
+  <button *ngIf="!filter" (click)="showFilter()" mat-icon-button color="primary">
+    <mat-icon>search</mat-icon>
+  </button>
+
+  <div class="mat-elevation-z8 col-md-10 filter" *ngIf="filter">
+
+    <div class="row">
+      <button style="margin: 10px 0 0 17px;" *ngIf="filter" (click)="showFilter()" mat-icon-button color="primary">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <mat-form-field class="{{type == 2 ? 'col-md-5 input' : 'col-md-10 input'}}">
+        <mat-label>{{'FILTER.SEARCH' | translate}}</mat-label>
+        <input matInput (input)="applyInput()" placeholder="{{'FILTER.SEARCH_EX' | translate}}" #inputElement>
+        <button *ngIf="inputElement" matSuffix mat-icon-button color="primary" aria-label="Clear"
+                (click)="clearInput()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col-md-5 input" *ngIf="type == 2">
+        <mat-label>{{'FILTER.ENTER_DATE' | translate}}</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="{{'FILTER.START_DATE' | translate}}">
+          <input matEndDate formControlName="end" placeholder="{{'FILTER.END_DATE' | translate}}">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+      </mat-form-field>
+    </div>
+
+    <section class="example-section" style="margin-left: 8px;" (click)="applyFilter()" *ngIf="type == 2">
+      <mat-checkbox class="example-margin" color="primary"
+                    [(ngModel)]="queryParams.bestseller">{{'FILTER.ON_BESTSELLER' | translate}}
+      </mat-checkbox>
+      <mat-checkbox class="example-margin" color="primary"
+                    [(ngModel)]="queryParams.discount">{{'FILTER.ON_DISCOUNT' | translate}}
+      </mat-checkbox>
+    </section>
+  </div>
+
+</div>

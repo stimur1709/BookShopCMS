@@ -1,10 +1,26 @@
 export interface QueryParams {
-  search: string;
+  search?: string | null,
   offset: number,
   limit: number,
-  reverse: boolean,
-  property: string
-
-  totalPages?: number,
-  count?: number,
+  reverse?: boolean,
+  property?: string | null
+  ids?: number[] | null
 }
+
+export interface PaginatorParams {
+  totalPages?: number,
+  totalElements?: number,
+}
+
+export interface BookQueryParams extends QueryParams {
+  bestseller: boolean,
+  discount: boolean,
+  from?: string | null,
+  to?: string | null
+}
+
+export interface DataModal {
+  type: number,
+  slug: string
+}
+

@@ -1,9 +1,54 @@
-<nav class="navbar bg-primary">
-  <div class="container-fluid">
-    <h1 class="navbar-brand">Bookshop CMS</h1>
-    <ul class="nav nav-pills">
-      <li class="nav-item"><a class="nav-link active" routerLink="/">User</a></li>
-      <li class="nav-item"><a class="nav-link active" routerLink="/book">Book</a></li>
-    </ul>
-  </div>
-</nav>
+<p>
+  <mat-toolbar color="primary" class="fixed">
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>My App</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="setting">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <a class="nav-link active" routerLink="/">
+      <mat-icon color="primary" style="vertical-align: middle">supervisor_account</mat-icon>
+      User
+    </a>
+  </button>
+  <button mat-menu-item>
+    <a class="nav-link active" routerLink="/book">
+      <mat-icon color="primary" style="vertical-align: middle">book</mat-icon>
+      Book
+    </a>
+  </button>
+  <button mat-menu-item>
+    <a class="nav-link active" routerLink="/author">
+      <mat-icon color="primary" style="vertical-align: middle">supervised_user_circle</mat-icon>
+      Author
+    </a>
+  </button>
+</mat-menu>
+
+<mat-menu #setting="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="language">
+    <mat-icon color="primary" style="vertical-align: middle"> language icon</mat-icon>
+    <span>{{'NAVIGATION.SELECT_LANGUAGE' | translate}}</span>
+  </button>
+</mat-menu>
+
+<mat-menu #language="matMenu">
+  <button mat-menu-item (click)="changeLanguage('ru')">
+    <span>{{'NAVIGATION.LANG.RU' | translate}}</span>
+  </button>
+  <button mat-menu-item (click)="changeLanguage('en')">
+    <span>{{'NAVIGATION.LANG.EN' | translate}}</span>
+  </button>
+</mat-menu>
+
+
