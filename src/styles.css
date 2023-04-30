@@ -82,3 +82,8 @@ img {
 .form-modal {
   width: 100%;
 }
+
+.subtitles {
+  display: contents;
+  color: #939490;
+}

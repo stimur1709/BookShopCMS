@@ -6,7 +6,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class InfoService {
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar) {
+  }
 
   openSnackBar(message: any) {
     message = this.mapToString(message);
@@ -23,7 +24,7 @@ export class InfoService {
       let messages = ''
       for (let [, value] of Object.entries(message)) {
         console.log(`${value}`)
-        messages +=  `${value}`
+        messages += `${value}`
       }
       return messages
     }

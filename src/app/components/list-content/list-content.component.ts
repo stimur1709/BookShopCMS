@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
@@ -14,7 +14,6 @@ import {QueryParams} from "../../model/QueryParams";
 export class ListContentComponent implements OnInit {
 
   @Input() dataSource!: any
-  @Output() dataSourceChange = new EventEmitter<any>()
   @Input() isEdit: boolean;
   @Input() type!: number
   @Input() queryModal!: number
@@ -29,7 +28,7 @@ export class ListContentComponent implements OnInit {
     offset: 0,
     limit: 5,
     reverse: true,
-    property: null,
+    property: 'id',
     search: null,
     ids: null
   }
@@ -54,6 +53,7 @@ export class ListContentComponent implements OnInit {
     if (index >= 0) {
       this.dataSource.splice(index, 1);
     }
+    this.title = this.getTitle()
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -61,6 +61,8 @@ export class ListContentComponent implements OnInit {
     this.inputElement.nativeElement.value = ''
     this.formControl.setValue(null)
     this.getData()
+    this.title = this.getTitle()
+
   }
 
   getData() {
@@ -68,42 +70,22 @@ export class ListContentComponent implements OnInit {
     this.service.getAll(this.queryParams, this.type)
       .pipe(take(1))
       .subscribe(
-        {
-          next: (data: any) => {
-            this.dataSourceAll = data.content
-          }
+        (data) => {
+          this.dataSourceAll = data.content
         }
       );
   }
 
-  openModal(slug: string, type: number): void {
-    if (!this.isEdit) {
-      // this.dialogRef.close();
-      // this.dialog.open(BookModalComponent, {
-      //   data: {
-      //     type: type,
-      //     slug: slug
-      //   }
-      // });
-    }
-  }
-
-  deleteLink(list: any, item: any) {
-    list.splice(list.indexOf(item), 1)
-    this.dataSourceChange.emit(this.dataSource)
-  }
-
-
   private getTitle(): string {
     switch (this.type) {
       case 1:
-        return this.dataSource.length == 0 ? 'Книга' : 'Книги'
+        return this.dataSource.length == 1 ? 'CONTENT.BOOK' : 'CONTENT.BOOKS'
       case 2:
-        return this.dataSource.length == 0 ? 'Автор' : 'Авторы'
+        return this.dataSource.length == 1 ? 'CONTENT.AUTHOR' : 'CONTENT.AUTHORS'
       case 3:
-        return this.dataSource.length == 0 ? 'Жанр' : 'Жанры'
+        return this.dataSource.length == 1 ? 'CONTENT.GENRE' : 'CONTENT.GENRES'
       default:
-        return this.dataSource.length == 0 ? 'Тег' : 'Теги'
+        return this.dataSource.length == 1 ? 'CONTENT.TAG' : 'CONTENT.TAGS'
     }
   }
 

@@ -13,7 +13,6 @@ export class HttpService {
   }
 
   getAll(queryParams: QueryParams, type: number): Observable<any> {
-    console.log(queryParams)
     return this.http.get<any>(
       environment.apiBaseUrl + '/' + this.getUrl(type) + this.generateQueryParams(queryParams)
     )

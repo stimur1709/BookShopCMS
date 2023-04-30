@@ -42,12 +42,10 @@ export class ContentPageDirective implements OnInit {
     return this.service.getAll(this.queryParams, this.url)
       .pipe(take(1))
       .subscribe(
-        {
-          next: (data: any) => {
-            this.dataSource = new MatTableDataSource(data.content)
-            this.paginatorParams.totalPages = data.totalPages
-            this.paginatorParams.totalElements = data.totalElements
-          }
+        (data) => {
+          this.dataSource = new MatTableDataSource(data.content)
+          this.paginatorParams.totalPages = data.totalPages
+          this.paginatorParams.totalElements = data.totalElements
         }
       )
   }
