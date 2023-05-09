@@ -1,4 +1,8 @@
-export interface QueryParams {
+export interface Query {
+
+}
+
+export interface QueryParams extends Query {
   search?: string | null,
   offset: number,
   limit: number,
@@ -24,3 +28,14 @@ export interface DataModal {
   slug: string
 }
 
+export interface BTQuery extends Query {
+  bookId: number | null,
+  interval?: string
+  dateS: string,
+  dateE: string
+}
+
+export interface IntervalDate {
+  dateS: string,
+  dateE: string
+}

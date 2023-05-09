@@ -46,8 +46,13 @@ import {ErrorInterceptor} from "./helpers/error-interceptor.service";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import { GenrePageComponent } from './pages/genre-page/genre-page.component';
-import { TagPageComponent } from './pages/tag-page/tag-page.component';
+import {GenrePageComponent} from './pages/genre-page/genre-page.component';
+import {TagPageComponent} from './pages/tag-page/tag-page.component';
+import {LineChartComponent} from './components/linechart/line-chart.component';
+import {DateParserDirective} from './components/date-parser.directive';
+import {CalendarComponent} from './components/calendar/calendar.component';
+import {SelectBoxComponent} from './components/select-box/select-box.component';
+import {MatSelectModule} from '@angular/material/select';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http)
@@ -72,7 +77,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     BookModalComponent,
     AuthorModalComponent,
     GenrePageComponent,
-    TagPageComponent
+    TagPageComponent,
+    LineChartComponent,
+    DateParserDirective,
+    CalendarComponent,
+    SelectBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +111,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatChipsModule,
     MatAutocompleteModule,
     MatSnackBarModule,
+    MatSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

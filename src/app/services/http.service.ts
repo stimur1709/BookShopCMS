@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
-import {QueryParams} from "../model/QueryParams";
+import {Query, QueryParams} from "../model/QueryParams";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,12 @@ export class HttpService {
   getData(slug: string, type: number): Observable<any> {
     return this.http.get<any>(
       environment.apiBaseUrl + '/' + this.getUrl(type) + '/' + slug
+    )
+  }
+
+  getContent(url: string, query: Query): Observable<any> {
+    return this.http.get<any>(
+      environment.apiBaseUrl + url + this.generateQueryParams(query)
     )
   }
 
@@ -51,10 +57,10 @@ export class HttpService {
     }
   }
 
-  private generateQueryParams(queryParams: QueryParams): string {
+  private generateQueryParams(query: Query): string {
     let index = 0,
       finalQueryParams = ''
-    for (let [key, value] of Object.entries(queryParams)) {
+    for (let [key, value] of Object.entries(query)) {
       if (value != null) {
         finalQueryParams += index === 0 ? `?${key}=${value}` : `&${key}=${value}`
         index++

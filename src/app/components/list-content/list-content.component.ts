@@ -37,6 +37,7 @@ export class ListContentComponent implements OnInit {
     this.title = this.getTitle()
     this.queryParams.ids = this.dataSource.map((v: { id: any; }) => v.id)
     this.getData()
+    console.log(this.queryParams)
   }
 
   constructor(private service: HttpService) {

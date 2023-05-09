@@ -55,3 +55,13 @@ export interface Author extends Data {
   description: string,
 }
 
+export interface TransactionsInterval {
+  intervalTime: Date,
+  transactionCount: number
+}
+
+export interface BooksTransactionsCount {
+  title: string,
+  count: number
+}
+

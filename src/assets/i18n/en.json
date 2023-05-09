@@ -61,5 +61,12 @@
     "BESTSELLER": "Bestseller equals 0 or 1",
     "PRICE": "The minimum price must be from 10",
     "Discount": "Discount must be between 0 and 100"
+  },
+  "OTHER": {
+    "INTERVAL": "Interval",
+    "DAY": "Day",
+    "WEEK": "Week",
+    "MONTH": "Month",
+    "YEAR": "Year"
   }
 }

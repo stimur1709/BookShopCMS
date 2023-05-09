@@ -19,8 +19,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.infoService.openSnackBar(err.error)
           break
         case 500:
-        case 0:
           this.infoService.openSnackBar("Ошибка на сервере")
+          break
+        case 0:
+          this.infoService.openSnackBar("Нет соединения с сервером")
           break
         default:
           this.infoService.openSnackBar(err.status)

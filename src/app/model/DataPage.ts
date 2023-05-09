@@ -14,3 +14,4 @@ export interface BookPage extends DataPage {
 export interface AuthorPage extends DataPage {
   content: Author[]
 }
+

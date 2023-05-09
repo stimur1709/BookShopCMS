@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {take} from "rxjs";
 import {HttpService} from "../../services/http.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {DataModal} from "../../model/QueryParams";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -17,8 +17,7 @@ export class ModalComponent implements OnInit {
   formGroup!: FormGroup
 
   constructor(private service: HttpService,
-              @Inject(MAT_DIALOG_DATA) public data: DataModal,
-              public dialogRef: MatDialogRef<ModalComponent>) {
+              @Inject(MAT_DIALOG_DATA) public data: DataModal) {
 
   }
 
