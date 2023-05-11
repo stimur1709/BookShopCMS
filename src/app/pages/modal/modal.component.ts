@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit {
   }
 
   private getData() {
-    return this.service.getData(this.data.slug, this.data.type)
+    return this.service.getContent(this.service.getUrl(this.data.type), this.data.slug)
       .pipe(take(1))
       .subscribe(
         (data) => {
@@ -41,7 +41,7 @@ export class ModalComponent implements OnInit {
     if (this.isEdit) {
       this.formBuild()
     } else {
-      this.service.saveContent(this.data.type, this.dataSource)
+      this.service.saveContent(this.service.getUrl(this.data.type), this.dataSource)
         .pipe(take(1))
         .subscribe(
           (data) => {

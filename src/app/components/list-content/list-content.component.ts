@@ -68,7 +68,7 @@ export class ListContentComponent implements OnInit {
 
   getData() {
     this.queryParams.ids = this.dataSource.map((v: { id: any; }) => v.id)
-    this.service.getAll(this.queryParams, this.type)
+    this.service.getContents(this.service.getUrl(this.type), this.queryParams)
       .pipe(take(1))
       .subscribe(
         (data) => {

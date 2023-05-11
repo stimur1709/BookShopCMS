@@ -3,7 +3,9 @@
     <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>My App</span>
+    <span>
+      {{'HOME.TITLE' | translate}}
+    </span>
     <span class="example-spacer"></span>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
       <mat-icon>favorite</mat-icon>
@@ -15,24 +17,36 @@
 </p>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <a class="nav-link active" routerLink="/">
-      <mat-icon color="primary" style="vertical-align: middle">supervisor_account</mat-icon>
-      User
-    </a>
-  </button>
-  <button mat-menu-item>
-    <a class="nav-link active" routerLink="/book">
+  <a class="nav-link active" routerLink="/">
+    <button mat-menu-item>
+      <mat-icon color="primary" style="vertical-align: middle">home</mat-icon>
+      {{'HOME.MAIN' | translate}}
+    </button>
+  </a>
+  <a class="nav-link active" routerLink="/book">
+    <button mat-menu-item>
       <mat-icon color="primary" style="vertical-align: middle">book</mat-icon>
-      Book
-    </a>
-  </button>
-  <button mat-menu-item>
-    <a class="nav-link active" routerLink="/author">
+      {{'CONTENT.BOOKS' | translate}}
+    </button>
+  </a>
+  <a class="nav-link active" routerLink="/author">
+    <button mat-menu-item>
       <mat-icon color="primary" style="vertical-align: middle">supervised_user_circle</mat-icon>
-      Author
-    </a>
-  </button>
+      {{'CONTENT.AUTHORS' | translate}}
+    </button>
+  </a>
+  <a class="nav-link active" routerLink="/genre">
+    <button mat-menu-item>
+      <mat-icon color="primary" style="vertical-align: middle">subtitles</mat-icon>
+      {{'CONTENT.GENRES' | translate}}
+    </button>
+  </a>
+  <a class="nav-link active" routerLink="/tag">
+    <button mat-menu-item>
+      <mat-icon color="primary" style="vertical-align: middle">label</mat-icon>
+      {{'CONTENT.TAGS' | translate}}
+    </button>
+  </a>
 </mat-menu>
 
 <mat-menu #setting="matMenu">

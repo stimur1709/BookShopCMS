@@ -1,6 +1,7 @@
 {
   "HOME": {
-    "TITLE": "Hello, please subscribe"
+    "TITLE": "BookshopCMS",
+    "MAIN": "Main"
   },
   "NAVIGATION": {
     "LANG": {
@@ -20,7 +21,7 @@
     "POPULARITY": "Popularity",
     "RATE": "Rate",
     "BOOK": "Book",
-    "BOOKS": "Book",
+    "BOOKS": "Books",
     "AUTHOR": "Author",
     "AUTHORS": "Authors",
     "GENRE": "Genre",

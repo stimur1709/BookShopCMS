@@ -8,7 +8,6 @@ import {ContentPageDirective} from "../content-page.directive";
 })
 export class AuthorsPageComponent extends ContentPageDirective {
 
-  override url: number = 2;
-  override displayedColumns: string[] = ['name', 'description'];
+  override url: string = 'api/authors';
 
 }

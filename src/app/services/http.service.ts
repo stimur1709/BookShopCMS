@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
-import {Query, QueryParams} from "../model/QueryParams";
+import {Query} from "../model/QueryParams";
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +12,17 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(queryParams: QueryParams, type: number): Observable<any> {
+  getContent(url: string, slug: string): Observable<any> {
     return this.http.get<any>(
-      environment.apiBaseUrl + '/' + this.getUrl(type) + this.generateQueryParams(queryParams)
+      environment.apiBaseUrl + '/' + url + '/' + slug
     )
   }
 
-  getData(slug: string, type: number): Observable<any> {
+  getContents(url: string, query: Query): Observable<any> {
+    console.log(environment.apiBaseUrl + url + this.generateQueryParams(query))
+    console.log(this.generateQueryParams(query))
     return this.http.get<any>(
-      environment.apiBaseUrl + '/' + this.getUrl(type) + '/' + slug
-    )
-  }
-
-  getContent(url: string, query: Query): Observable<any> {
-    return this.http.get<any>(
-      environment.apiBaseUrl + url + this.generateQueryParams(query)
+      environment.apiBaseUrl + '/' + url + this.generateQueryParams(query)
     )
   }
 
@@ -36,25 +32,10 @@ export class HttpService {
     )
   }
 
-  saveContent(type: number, dataSource: any) {
+  saveContent(url: string, dataSource: any) {
     return this.http.post(
-      environment.apiBaseUrl + '/' + this.getUrl(type) + '/save', dataSource
+      environment.apiBaseUrl + '/' + url + '/save', dataSource
     )
-  }
-
-  private getUrl(type: number): string {
-    switch (type) {
-      case 1:
-        return 'api/books'
-      case 2:
-        return 'api/authors'
-      case 3:
-        return 'api/genres'
-      case 4:
-        return 'api/tags'
-      default:
-        return ''
-    }
   }
 
   private generateQueryParams(query: Query): string {
@@ -69,4 +50,18 @@ export class HttpService {
     return finalQueryParams
   }
 
+  public getUrl(type: number): string {
+    switch (type) {
+      case 1:
+        return 'api/books'
+      case 2:
+        return 'api/authors'
+      case 3:
+        return 'api/genres'
+      case 4:
+        return 'api/tags'
+      default:
+        return ''
+    }
+  }
 }

@@ -82,7 +82,7 @@ export class LineChartComponent implements OnInit {
     this.btQuery.dateS = DateParserDirective.getStrDate(dateS)
     let momentEnd = moment(dateS).add(1, this.getUnit());
     this.btQuery.dateE = DateParserDirective.getStrDate(momentEnd.toDate())
-    this.httpService.getContent('/api/transactions/books', this.btQuery)
+    this.httpService.getContents('api/transactions/books', this.btQuery)
       .pipe(take(1))
       .subscribe(
         (data) => {
@@ -94,7 +94,7 @@ export class LineChartComponent implements OnInit {
   }
 
   getContent() {
-    this.httpService.getContent('/api/transactions/interval', this.btQuery)
+    this.httpService.getContents('api/transactions/interval', this.btQuery)
       .pipe(take(1))
       .subscribe(
         (data) => {

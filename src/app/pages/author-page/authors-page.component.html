@@ -1,8 +1,8 @@
 <ng-container>
 
-  <app-filter class="fixed-filter"
-              [(queryParams)]="queryParams" [(filter)]="filter"
-              [type]="1" (queryParamsChange)="getData()">
+  <app-filter
+    [(queryParams)]="queryParams" [(filter)]="filter"
+    [type]="1" (queryParamsChange)="getData()">
   </app-filter>
 
   <div class="mat-elevation-z8 table-container"

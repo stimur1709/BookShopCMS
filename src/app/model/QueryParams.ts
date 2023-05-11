@@ -23,6 +23,10 @@ export interface BookQueryParams extends QueryParams {
   to?: string | null
 }
 
+export interface TagQueryParams extends QueryParams {
+  all: boolean | null
+}
+
 export interface DataModal {
   type: number,
   slug: string

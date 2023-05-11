@@ -9,8 +9,7 @@ import {ContentPageDirective} from "../content-page.directive";
 })
 export class BooksPageComponent extends ContentPageDirective {
 
-  override displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate'];
-  override url: number = 1
+  override url: string = 'api/books'
 
   public override queryParams: BookQueryParams = {
     offset: 0,

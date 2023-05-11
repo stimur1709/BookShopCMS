@@ -48,11 +48,14 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {GenrePageComponent} from './pages/genre-page/genre-page.component';
 import {TagPageComponent} from './pages/tag-page/tag-page.component';
-import {LineChartComponent} from './components/linechart/line-chart.component';
+import {LineChartComponent} from './components/line-chart/line-chart.component';
 import {DateParserDirective} from './components/date-parser.directive';
 import {CalendarComponent} from './components/calendar/calendar.component';
 import {SelectBoxComponent} from './components/select-box/select-box.component';
 import {MatSelectModule} from '@angular/material/select';
+import {GenreListComponent} from './components/genre-list/genre-list.component';
+import {MatTreeModule} from '@angular/material/tree';
+import {DoughnutChartComponent} from './components/doughnut-chart/doughnut-chart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http)
@@ -81,7 +84,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LineChartComponent,
     DateParserDirective,
     CalendarComponent,
-    SelectBoxComponent
+    SelectBoxComponent,
+    GenreListComponent,
+    DoughnutChartComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +117,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatAutocompleteModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatTreeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
