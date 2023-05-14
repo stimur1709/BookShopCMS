@@ -1,6 +1,6 @@
 <p>
   <mat-toolbar color="primary" class="fixed">
-    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu">
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" *ngIf="isAuth">
       <mat-icon>menu</mat-icon>
     </button>
     <span>
@@ -12,6 +12,9 @@
     </button>
     <button mat-icon-button class="example-icon" [matMenuTriggerFor]="setting">
       <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" (click)="authenticationService.logout()" *ngIf="isAuth">
+      <mat-icon>exit_to_app</mat-icon>
     </button>
   </mat-toolbar>
 </p>
@@ -35,18 +38,6 @@
       {{'CONTENT.AUTHORS' | translate}}
     </button>
   </a>
-  <a class="nav-link active" routerLink="/genre">
-    <button mat-menu-item>
-      <mat-icon color="primary" style="vertical-align: middle">subtitles</mat-icon>
-      {{'CONTENT.GENRES' | translate}}
-    </button>
-  </a>
-  <a class="nav-link active" routerLink="/tag">
-    <button mat-menu-item>
-      <mat-icon color="primary" style="vertical-align: middle">label</mat-icon>
-      {{'CONTENT.TAGS' | translate}}
-    </button>
-  </a>
 </mat-menu>
 
 <mat-menu #setting="matMenu">
@@ -64,5 +55,3 @@
     <span>{{'NAVIGATION.LANG.EN' | translate}}</span>
   </button>
 </mat-menu>
-
-

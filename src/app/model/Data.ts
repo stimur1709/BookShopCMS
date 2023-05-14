@@ -65,3 +65,19 @@ export interface BooksTransactionsCount {
   count: number
 }
 
+export interface User {
+  token: string
+}
+
+export interface LoginInterface {
+  code: string,
+  contact: string
+}
+
+export interface AuthInterface {
+  result: boolean,
+  token: string,
+  error: string,
+  roles: string[]
+}
+

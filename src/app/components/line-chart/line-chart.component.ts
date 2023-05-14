@@ -38,7 +38,6 @@ export class LineChartComponent implements OnInit {
 
   ngOnInit() {
     this.getContent()
-    this.createChart()
 
   }
 

@@ -42,20 +42,20 @@ import {BookModalComponent} from './components/book-modal/book-modal.component';
 import {AuthorModalComponent} from './components/author-modal/author-modal.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {ErrorInterceptor} from "./helpers/error-interceptor.service";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {GenrePageComponent} from './pages/genre-page/genre-page.component';
-import {TagPageComponent} from './pages/tag-page/tag-page.component';
 import {LineChartComponent} from './components/line-chart/line-chart.component';
 import {DateParserDirective} from './components/date-parser.directive';
 import {CalendarComponent} from './components/calendar/calendar.component';
 import {SelectBoxComponent} from './components/select-box/select-box.component';
 import {MatSelectModule} from '@angular/material/select';
-import {GenreListComponent} from './components/genre-list/genre-list.component';
 import {MatTreeModule} from '@angular/material/tree';
 import {DoughnutChartComponent} from './components/doughnut-chart/doughnut-chart.component';
+import {LoginComponent} from './components/login/login.component';
+import {MainComponent} from './pages/main/main.component';
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {ErrorInterceptor} from "./helpers/error-interceptor.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http)
@@ -79,14 +79,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     ListContentComponent,
     BookModalComponent,
     AuthorModalComponent,
-    GenrePageComponent,
-    TagPageComponent,
     LineChartComponent,
     DateParserDirective,
     CalendarComponent,
     SelectBoxComponent,
-    GenreListComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    LoginComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -130,6 +129,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     DatePipe,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

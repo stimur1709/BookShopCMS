@@ -11,7 +11,6 @@ export class DateParserDirective {
   }
 
   static getDate(date: string, format: string | null = null): Date {
-    console.log(date)
     return format == null ? moment(date, 'DD.MM.yyyy').toDate() : moment(date, format).toDate()
   }
 

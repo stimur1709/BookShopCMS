@@ -1,0 +1,21 @@
+<div class="Login">
+  <form class="form"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit('loginForm')"
+  >
+    <div class="form-item" *ngFor="let item of ['contact', 'code']">
+      <mat-form-field appearance="fill" style="{{item === 'contact' ? 'width: 100%' : ''}}">
+        <mat-label>Enter your {{item}}</mat-label>
+        <input matInput formControlName="{{item}}"
+               [type]="(!showPassword && item === 'code') ? 'password' : 'text'"
+        />
+        <button *ngIf="item === 'code'"
+                mat-icon-button matSuffix
+                (click)="changeShowPassword($event)">
+          <mat-icon>{{!showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <button mat-flat-button color="primary" type="submit">Войти</button>
+  </form>
+</div>

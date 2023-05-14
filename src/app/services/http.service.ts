@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {Query} from "../model/QueryParams";
+import {LoginInterface} from "../model/Data";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,6 @@ export class HttpService {
   }
 
   getContents(url: string, query: Query): Observable<any> {
-    console.log(environment.apiBaseUrl + url + this.generateQueryParams(query))
-    console.log(this.generateQueryParams(query))
     return this.http.get<any>(
       environment.apiBaseUrl + '/' + url + this.generateQueryParams(query)
     )
@@ -36,6 +35,10 @@ export class HttpService {
     return this.http.post(
       environment.apiBaseUrl + '/' + url + '/save', dataSource
     )
+  }
+
+  login(data: LoginInterface) {
+    return this.http.post<any>(`${environment.apiBaseUrl}/login`, data)
   }
 
   private generateQueryParams(query: Query): string {

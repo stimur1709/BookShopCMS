@@ -42,7 +42,6 @@ export class ContentPageDirective implements OnInit {
           this.dataSource = new MatTableDataSource(data.content)
           this.paginatorParams.totalPages = data.totalPages
           this.paginatorParams.totalElements = data.totalElements
-          console.log(data)
         }
       )
   }

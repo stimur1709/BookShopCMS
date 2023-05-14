@@ -23,7 +23,6 @@ export class InfoService {
     } else {
       let messages = ''
       for (let [, value] of Object.entries(message)) {
-        console.log(`${value}`)
         messages += `${value}`
       }
       return messages
