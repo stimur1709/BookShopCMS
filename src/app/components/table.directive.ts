@@ -3,8 +3,6 @@ import {Sort} from "@angular/material/sort";
 import {QueryParamDirective} from "./query-param.directive";
 import {PaginatorParams} from "../model/QueryParams";
 import {MatTableDataSource} from "@angular/material/table";
-import {ModalComponent} from "../pages/modal/modal.component";
-import {MatDialog} from "@angular/material/dialog";
 
 @Directive({
   selector: '[appTable]'
@@ -12,13 +10,10 @@ import {MatDialog} from "@angular/material/dialog";
 export class TableDirective extends QueryParamDirective {
 
   @Input() dataSource: MatTableDataSource<any>
-  @Output() dataSourceChange = new EventEmitter<any>();
+  @Output() dataSourceChange = new EventEmitter<number>();
+  @Output() modalChange = new EventEmitter<{}>();
   @Input() paginatorParams: PaginatorParams
   displayedColumns!: string[]
-
-  constructor(public dialog: MatDialog) {
-    super()
-  }
 
   sortChanged(event: Sort): void {
     this.queryParams.property = event.active
@@ -27,18 +22,11 @@ export class TableDirective extends QueryParamDirective {
   }
 
   openModal(element: any, type: number): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      data: {
-        type: type,
-        slug: element.slug
-      }
-    })
+    this.modalChange.emit({slug: element.slug, type: type})
+  }
 
-    dialogRef.afterClosed().subscribe(
-      () => {
-        this.change()
-      }
-    )
+  delete(id: number) {
+    this.dataSourceChange.emit(id)
   }
 
 }

@@ -8,6 +8,6 @@ import {TableDirective} from "../table.directive";
 })
 export class TableBookComponent extends TableDirective {
 
-  override displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate'];
+  override displayedColumns: string[] = ['title', 'price', 'pubDate', 'popularity', 'rate', 'actions'];
 
 }

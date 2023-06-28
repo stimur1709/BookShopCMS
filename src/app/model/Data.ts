@@ -3,7 +3,7 @@ export interface Data {
 }
 
 export interface Books extends Data {
-  title: string
+  title: string,
   discount: number,
   image: string,
   imageId: number,

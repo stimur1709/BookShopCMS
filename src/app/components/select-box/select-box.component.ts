@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {FormControl} from "@angular/forms";
 
 class SelectBox {
-  value: string;
+  value: string | null;
   view: string;
 }
 
@@ -22,12 +21,11 @@ export class SelectBoxComponent {
 
   @Output() selectChange = new EventEmitter<string>
 
-  formSelect = new FormControl('day');
+  selected = this.selectBox[0];
 
-  update() {
-    let value = this.formSelect.value;
-    if (value != null) {
-      this.selectChange.emit(value)
+  update(select: SelectBox) {
+    if (select.value != null) {
+      this.selectChange.emit(select.value)
     }
   }
 }

@@ -9,6 +9,7 @@
        style="{{filter ? 'height: calc(100vh - 229px)' : 'height: calc(100vh - 199px)'}}">
 
     <app-table-author [(queryParams)]="queryParams" [dataSource]="dataSource"
+                      (modalChange)="openModal($event)"
                       [paginatorParams]="paginatorParams" (queryParamsChange)="getData()">
     </app-table-author>
 

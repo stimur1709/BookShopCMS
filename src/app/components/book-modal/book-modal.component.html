@@ -2,7 +2,7 @@
   <mat-card-header style="margin-bottom: 10px">
 
     <div>
-      <img src="{{env.apiBaseUrl + dataSource.image}}" width="150" height="200" alt="1"
+      <img src="{{env.apiBaseUrl + '/img/'+ dataSource.image}}" width="150" height="200" alt="1"
            (click)="openSelectFile()">
       <input style="display: none" type="file" multiple accept="image/*" (change)="changeImage($event)" #image>
     </div>

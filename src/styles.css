@@ -58,7 +58,7 @@ img {
 .filter {
   position: sticky;
   top: 10px;
-  z-index: 100;
+  z-index: 9;
 }
 
 .fixed-table {
@@ -88,3 +88,23 @@ img {
   display: contents;
   color: #939490;
 }
+
+.position-top-right {
+  position: absolute !important;
+  top: 0;
+  right: 0
+}
+
+.btn {
+  border-radius: 50%;
+}
+
+.btn:hover {
+  background: rgba(238, 138, 138, 0.19);
+}
+
+.red {
+  color: #f44336;
+  margin-top: 5px;
+}
+

@@ -41,6 +41,11 @@ export class HttpService {
     return this.http.post<any>(`${environment.apiBaseUrl}/login`, data)
   }
 
+  delete(url: string, id: number) {
+    console.log(`${environment.apiBaseUrl}/${url}/delete/${id}`)
+    return this.http.delete<any>(`${environment.apiBaseUrl}/${url}/delete/${id}`)
+  }
+
   private generateQueryParams(query: Query): string {
     let index = 0,
       finalQueryParams = ''

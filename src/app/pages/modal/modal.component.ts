@@ -4,6 +4,7 @@ import {HttpService} from "../../services/http.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {DataModal} from "../../model/QueryParams";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {InfoService} from "../../services/info.service";
 
 @Component({
   selector: 'app-modal',
@@ -17,16 +18,35 @@ export class ModalComponent implements OnInit {
   formGroup!: FormGroup
 
   constructor(private service: HttpService,
-              @Inject(MAT_DIALOG_DATA) public data: DataModal) {
-
+              @Inject(MAT_DIALOG_DATA) public data: DataModal,
+              private infoService: InfoService) {
   }
 
   ngOnInit(): void {
-    this.getData()
+    if (this.data.slug == null) {
+      this.dataSource = {
+        title: null,
+        discount: 0,
+        image: '1.png',
+        imageId: 1,
+        isBestseller: 0,
+        popularity: 0,
+        price: 500,
+        slug: null,
+        rate: 0,
+        tagList: [],
+        authorList: [],
+        genreList: []
+      }
+      this.isEdit = true;
+      this.formBuild()
+    } else {
+      this.getData()
+    }
   }
 
   private getData() {
-    return this.service.getContent(this.service.getUrl(this.data.type), this.data.slug)
+    this.service.getContent(this.service.getUrl(this.data.type), this.data.slug)
       .pipe(take(1))
       .subscribe(
         (data) => {
@@ -43,8 +63,8 @@ export class ModalComponent implements OnInit {
       this.service.saveContent(this.service.getUrl(this.data.type), this.dataSource)
         .pipe(take(1))
         .subscribe(
-          (data) => {
-            this.dataSource = data
+          () => {
+            this.infoService.openSnackBar("Сохранено")
           }
         );
     }
@@ -101,7 +121,6 @@ export class ModalComponent implements OnInit {
         ]),
         description: new FormControl(this.dataSource.description)
       })
-
     }
   }
 
