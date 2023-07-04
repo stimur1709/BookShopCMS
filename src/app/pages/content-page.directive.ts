@@ -6,6 +6,7 @@ import {PaginatorParams, QueryParams} from "../model/QueryParams";
 import {DataPage} from "../model/DataPage";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalComponent} from "./modal/modal.component";
+import {InfoService} from "../services/info.service";
 
 @Directive({
   selector: '[appContent]'
@@ -30,7 +31,8 @@ export class ContentPageDirective implements OnInit {
   }
 
   constructor(private service: HttpService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private infoService: InfoService) {
   }
 
   ngOnInit(): void {
@@ -42,7 +44,6 @@ export class ContentPageDirective implements OnInit {
       .pipe(take(1))
       .subscribe(
         (data) => {
-          console.log(data.content)
           this.dataSource = new MatTableDataSource(data.content)
           this.paginatorParams.totalPages = data.totalPages
           this.paginatorParams.totalElements = data.totalElements
@@ -64,6 +65,14 @@ export class ContentPageDirective implements OnInit {
     dialogRef.afterClosed().subscribe(
       () => {
         this.getData();
+      }
+    )
+  }
+
+  save(data: any) {
+    this.service.saveContent(this.url, data).subscribe(
+      () => {
+        this.infoService.openSnackBar("Изменения сохранены")
       }
     )
   }

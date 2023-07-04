@@ -8,6 +8,11 @@ import {TableDirective} from "../table.directive";
 })
 export class ReviewTableComponent extends TableDirective {
 
-  override displayedColumns: string[] = ['text', 'actions'];
+  override displayedColumns: string[] = ['time', 'text', 'actions'];
+
+  override save(data: any) {
+    data.status = 1;
+    super.save(data);
+  }
 
 }

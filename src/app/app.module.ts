@@ -56,8 +56,8 @@ import {LoginComponent} from './components/login/login.component';
 import {MainComponent} from './pages/main/main.component';
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {ErrorInterceptor} from "./helpers/error-interceptor.service";
-import { ReviewComponent } from './pages/review/review.component';
-import { ReviewTableComponent } from './components/review-table/review-table.component';
+import {ReviewComponent} from './pages/review/review.component';
+import {ReviewTableComponent} from './components/review-table/review-table.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http)

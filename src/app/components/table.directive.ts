@@ -11,6 +11,7 @@ export class TableDirective extends QueryParamDirective {
 
   @Input() dataSource: MatTableDataSource<any>
   @Output() dataSourceChange = new EventEmitter<number>();
+  @Output() dataSaveChange = new EventEmitter<any>();
   @Output() modalChange = new EventEmitter<{}>();
   @Input() paginatorParams: PaginatorParams
   displayedColumns!: string[]
@@ -27,6 +28,10 @@ export class TableDirective extends QueryParamDirective {
 
   delete(id: number) {
     this.dataSourceChange.emit(id)
+  }
+
+  save(data: any) {
+    this.dataSaveChange.emit(data)
   }
 
 }

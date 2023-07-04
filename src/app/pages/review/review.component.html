@@ -1,10 +1,13 @@
 <ng-container>
 
   <div class="mat-elevation-z8 table-container"
-       style="calc(100vh - 272px)">
-    <app-review-table [(queryParams)]="queryParams" [dataSource]="dataSource"
+       style="height: calc(100vh - 129px)">
+    <app-review-table [(queryParams)]="queryParams"
+                      [dataSource]="dataSource"
                       (dataSourceChange)="delete($event)"
-                      [paginatorParams]="paginatorParams" (queryParamsChange)="getData()">
+                      (dataSaveChange)="save($event)"
+                      [paginatorParams]="paginatorParams"
+                      (queryParamsChange)="getData()">
     </app-review-table>
   </div>
 

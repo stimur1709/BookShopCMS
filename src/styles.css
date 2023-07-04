@@ -95,16 +95,29 @@ img {
   right: 0
 }
 
-.btn {
+.btn-r, .btn-g {
   border-radius: 50%;
+  border: 0;
+  background: #fff;
 }
 
-.btn:hover {
+.btn-r:hover {
   background: rgba(238, 138, 138, 0.19);
+}
+
+.btn-g:hover {
+  background: rgba(167, 255, 159, 0.19);
 }
 
 .red {
   color: #f44336;
   margin-top: 5px;
 }
+
+.green {
+  color: #139f04;
+  margin-top: 5px;
+}
+
+
 
