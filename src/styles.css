@@ -119,5 +119,18 @@ img {
   margin-top: 5px;
 }
 
+.btn-circle {
+  background: #b90424;
+  position: absolute;
+  min-width: 23px;
+  font-size: 12px;
+  letter-spacing: -.6px;
+  color: #fff;
+  padding: 2px;
+  line-height: 1.2em;
+  border: 3px solid #fff;
+  border-radius: 100px;
+}
+
 
 

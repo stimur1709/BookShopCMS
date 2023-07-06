@@ -9,8 +9,10 @@
     <span class="example-spacer"></span>
     <button mat-icon-button class="example-icon favorite-icon"
             aria-label="Example icon-button with heart icon"
+            title="Новые отзывы"
             routerLink="/review">
       <mat-icon>rate_review</mat-icon>
+      <span class="btn-circle">{{unconfirmedReview}}</span>
     </button>
     <button mat-icon-button class="example-icon" [matMenuTriggerFor]="setting">
       <mat-icon>settings</mat-icon>

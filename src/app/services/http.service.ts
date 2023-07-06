@@ -15,8 +15,14 @@ export class HttpService {
 
   getContent(url: string, slug: string): Observable<any> {
     return this.http.get<any>(
-      environment.apiBaseUrl + '/' + url + '/' + slug
+      `${environment.apiBaseUrl}/${url}/${slug}`
     )
+  }
+
+  getData(url: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiBaseUrl}/${url}`
+    );
   }
 
   getContents(url: string, query: Query): Observable<any> {

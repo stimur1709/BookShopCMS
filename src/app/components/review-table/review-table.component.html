@@ -22,12 +22,14 @@
       <div *ngIf="element.status == 0">
         <button class="btn-g">
           <mat-icon class="green"
+                    title="Подтвердить"
                     (click)="save(element)">
             check_circle_outline
           </mat-icon>
         </button>
         <button class="btn-r">
           <mat-icon class="red"
+                    title="Удалить"
                     (click)="delete(element.id)">delete
           </mat-icon>
         </button>
