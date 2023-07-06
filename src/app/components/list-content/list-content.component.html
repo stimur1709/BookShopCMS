@@ -1,0 +1,35 @@
+<mat-card-subtitle>
+  <span *ngIf="!isEdit">{{title | translate}}:</span>
+
+  <ng-container *ngIf="!isEdit">
+    <ng-container *ngFor="let data of dataSource; last as asLast">
+      <s class="link">
+        {{type == 1 ? data.title : data.name}}
+        <span *ngIf="!asLast && !isEdit">, </span>
+      </s>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isEdit">
+    <mat-form-field class="example-chip-list" appearance="fill" style="width: 100%;">
+      <mat-label>{{title | translate}}:</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Fruit selection">
+        <mat-chip-row *ngFor="let data of dataSource" (removed)="remove(data)">
+          {{type == 1 ? data.title : data.name}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      </mat-chip-grid>
+      <input placeholder="{{'MODAL.ADD' | translate}}" #input [formControl]="formControl"
+             [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (input)="add()"/>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let data of dataSourceAll" [value]="data">
+          {{type == 1 ? data.title : data.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </ng-container>
+</mat-card-subtitle>

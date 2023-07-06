@@ -1,0 +1,28 @@
+<div style="width: 80vw;">
+  <h2 mat-dialog-title [ngSwitch]="data.type">
+    <span *ngSwitchCase="1">{{'CONTENT.BOOK' | translate}}</span>
+    <span *ngSwitchCase="2">{{'CONTENT.AUTHOR' | translate}}</span>
+    <span *ngSwitchCase="3">{{'CONTENT.GENRE' | translate}}</span>
+    <span *ngSwitchCase="4">{{'CONTENT.TAG' | translate}}</span>
+  </h2>
+  <mat-dialog-content class="mat-typography">
+
+    <ng-container [ngSwitch]="data.type">
+      <app-book-modal *ngSwitchCase="1" [dataSource]="dataSource" [isEdit]="isEdit"
+                      (photoChange)="saveImage($event)" [formModal]="formGroup">
+      </app-book-modal>
+      <app-author-modal *ngSwitchCase="2" [dataSource]="dataSource" [isEdit]="isEdit"
+                        (photoChange)="saveImage($event)" [formModal]="formGroup">
+      </app-author-modal>
+    </ng-container>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button *ngIf="isEdit" (click)="cancel()">{{'MODAL.CANCEL' | translate}}</button>
+    <button mat-button *ngIf="!isEdit" [mat-dialog-close]="this.dataSource">{{'MODAL.CLOSE'| translate}}</button>
+    <button mat-button (click)="edit()" [disabled]="isEdit && this.formGroup.status == 'INVALID'">
+      {{(isEdit ? 'MODAL.SAVE' : 'MODAL.EDIT') | translate}}
+    </button>
+  </mat-dialog-actions>
+
+</div>

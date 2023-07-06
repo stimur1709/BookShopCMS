@@ -1,8 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.container-body {
+  margin-top: 70px;
+  padding: 0 7px;
+}
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.Card-priceOld {
+  color: #999;
+  display: inline-block;
+  margin-right: 7px;
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+.Card-price {
+  color: #0d6efd;
+  display: inline-block;
+}
+
+.box {
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 24px rgba(0, 0, 0, .1);
+  border: 1px solid #afafb7;
+}
+
+img {
+  margin: 5px 10px 5px 0;
+  box-shadow: 0 0 24px rgba(0, 0, 0, .1);
+  border: 1px solid #afafb7;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  margin-left: 3px;
+}
+
+.link-delete {
+  color: #0d6efd;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-delete:hover {
+  color: #be123c;
+}
+
+.input {
+  margin: 5px 4px -5px;
+}
+
+.filter {
+  position: sticky;
+  top: 10px;
+  z-index: 9;
+}
+
+.fixed-table {
+  position: sticky;
+}
+
+.table-container {
+  height: calc(100vh - 199px);
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
+.link-active {
+  cursor: pointer;
+}
+
+.link-active:hover {
+  cursor: pointer;
+  color: #0d6efd;
+}
+
+.form-modal {
+  width: 100%;
+}
+
+.subtitles {
+  display: contents;
+  color: #939490;
+}
+
+.position-top-right {
+  position: absolute !important;
+  top: 0;
+  right: 0
+}
+
+.btn-r, .btn-g {
+  border-radius: 50%;
+  border: 0;
+  background: #fff;
+}
+
+.btn-r:hover {
+  background: rgba(238, 138, 138, 0.19);
+}
+
+.btn-g:hover {
+  background: rgba(167, 255, 159, 0.19);
+}
+
+.red {
+  color: #f44336;
+  margin-top: 5px;
+}
+
+.green {
+  color: #139f04;
+  margin-top: 5px;
+}
+
+.btn-circle {
+  background: #b90424;
+  position: absolute;
+  min-width: 23px;
+  font-size: 12px;
+  letter-spacing: -.6px;
+  color: #fff;
+  padding: 2px;
+  line-height: 1.2em;
+  border: 3px solid #fff;
+  border-radius: 100px;
+}
+
+
+

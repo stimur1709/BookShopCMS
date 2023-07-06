@@ -1,0 +1,10 @@
+<mat-form-field appearance="fill">
+  <mat-label>{{"OTHER.INTERVAL" | translate}}</mat-label>
+  <mat-select [(ngModel)]="selected">
+    <mat-option *ngFor="let select of selectBox"
+                [value]="select.value"
+                (click)="update(select)">
+      {{select.view | translate}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

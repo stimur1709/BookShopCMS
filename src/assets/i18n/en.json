@@ -1,0 +1,74 @@
+{
+  "HOME": {
+    "TITLE": "BookshopCMS",
+    "MAIN": "Main"
+  },
+  "NAVIGATION": {
+    "LANG": {
+      "RU": "Русский",
+      "EN": "English"
+    },
+    "SELECT_LANGUAGE": "Select language"
+  },
+  "CONTENT": {
+    "TITLE": "Title",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "PRICE": "Price",
+    "DIS_PRICE": "Discount price",
+    "DISCOUNT": "Discount",
+    "PUB_DATE": "Publication date",
+    "POPULARITY": "Popularity",
+    "ACTIONS": "Actions",
+    "RATE": "Rate",
+    "BOOK": "Book",
+    "BOOKS": "Books",
+    "AUTHOR": "Author",
+    "AUTHORS": "Authors",
+    "GENRE": "Genre",
+    "GENRES": "Genres",
+    "TAG": "Tag",
+    "TAGS": "Tags",
+    "TRANSACTIONAL": "Transactional"
+  },
+  "PAGINATOR": {
+    "ITEMS_PAGE": "Items per page:",
+    "FIRST_PAGE": "First page",
+    "LAST_PAGE": "Last page",
+    "NEXT_PAGE": "Next page",
+    "PREVIOUS_PAGE": "Previous page"
+  },
+  "FILTER": {
+    "ON_BESTSELLER": "Bestsellers",
+    "ON_DISCOUNT": "With discount",
+    "SEARCH": "Search",
+    "SEARCH_EX": "Enter words to search",
+    "ENTER_DATE": "Enter date range",
+    "START_DATE": "Start date",
+    "END_DATE": "End date"
+  },
+  "MODAL": {
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "EDIT": "Edit",
+    "CLOSE": "Close",
+    "ENTER_TITLE": "Enter your title",
+    "ENTER_NAME": "Enter your name",
+    "ENTER_DESCRIPTION": "Enter your description",
+    "ADD": "Add..."
+  },
+  "VALID": {
+    "TITLE": "Title must be between 2 and 255 characters",
+    "NAME": "Name must be between 2 and 255 characters",
+    "BESTSELLER": "Bestseller equals 0 or 1",
+    "PRICE": "The minimum price must be from 10",
+    "Discount": "Discount must be between 0 and 100"
+  },
+  "OTHER": {
+    "INTERVAL": "Interval",
+    "DAY": "Day",
+    "WEEK": "Week",
+    "MONTH": "Month",
+    "YEAR": "Year"
+  }
+}

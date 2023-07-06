@@ -1,7 +1,61 @@
-<nav class="absolute top-0 right-0 px-5 left-0 h-[50px] flex justify-between items-center text-white bg-gray-500">
-  <h1 class="font-bold">Angular App</h1>
-  <span>
-    <a routerLink="/" class="mr-2">User</a>
-    <a routerLink="/book">Book</a>
-  </span>
-</nav>
+<p>
+  <mat-toolbar color="primary" class="fixed">
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" *ngIf="isAuth">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>
+      {{'HOME.TITLE' | translate}}
+    </span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon"
+            aria-label="Example icon-button with heart icon"
+            title="Новые отзывы"
+            routerLink="/review">
+      <mat-icon>rate_review</mat-icon>
+      <span class="btn-circle">{{unconfirmedReview}}</span>
+    </button>
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="setting">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" (click)="authenticationService.logout()" *ngIf="isAuth">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
+
+<mat-menu #menu="matMenu">
+  <a class="nav-link active" routerLink="/">
+    <button mat-menu-item>
+      <mat-icon color="primary" style="vertical-align: middle">home</mat-icon>
+      {{'HOME.MAIN' | translate}}
+    </button>
+  </a>
+  <a class="nav-link active" routerLink="/book">
+    <button mat-menu-item>
+      <mat-icon color="primary" style="vertical-align: middle">book</mat-icon>
+      {{'CONTENT.BOOKS' | translate}}
+    </button>
+  </a>
+  <a class="nav-link active" routerLink="/author">
+    <button mat-menu-item>
+      <mat-icon color="primary" style="vertical-align: middle">supervised_user_circle</mat-icon>
+      {{'CONTENT.AUTHORS' | translate}}
+    </button>
+  </a>
+</mat-menu>
+
+<mat-menu #setting="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="language">
+    <mat-icon color="primary" style="vertical-align: middle"> language icon</mat-icon>
+    <span>{{'NAVIGATION.SELECT_LANGUAGE' | translate}}</span>
+  </button>
+</mat-menu>
+
+<mat-menu #language="matMenu">
+  <button mat-menu-item (click)="changeLanguage('ru')">
+    <span>{{'NAVIGATION.LANG.RU' | translate}}</span>
+  </button>
+  <button mat-menu-item (click)="changeLanguage('en')">
+    <span>{{'NAVIGATION.LANG.EN' | translate}}</span>
+  </button>
+</mat-menu>

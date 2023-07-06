@@ -1,0 +1,7 @@
+<div>
+  <app-calendar [(intervalDate)]="intervalDate" (intervalDateChange)="updateChart()"></app-calendar>
+  <app-select-box (selectChange)="updateChart($event)"></app-select-box>
+  <div>
+    <canvas width="600" height="220" id="MyChart">{{ chart }}</canvas>
+  </div>
+</div>
